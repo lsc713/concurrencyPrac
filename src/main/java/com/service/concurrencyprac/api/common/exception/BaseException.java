@@ -1,6 +1,5 @@
 package com.service.concurrencyprac.api.common.exception;
 
-import ch.qos.logback.core.spi.ErrorCodes;
 import com.service.concurrencyprac.api.common.response.ErrorCode;
 import lombok.Getter;
 

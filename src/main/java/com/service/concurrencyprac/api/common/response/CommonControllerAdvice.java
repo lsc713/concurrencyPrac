@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 public class CommonControllerAdvice {
+
     private static final List<ErrorCode> SPECIFIC_ALTER_TARGET_ERROR_CODE_LIST = Lists.newArrayList();
 
     /*http status : 200, Result = Fail
-    * 비지니스 로직 처리상의 오류*/
+     * 비지니스 로직 처리상의 오류*/
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(value = BaseException.class)

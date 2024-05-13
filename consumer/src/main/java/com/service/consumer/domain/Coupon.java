@@ -12,6 +12,7 @@ public class Coupon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
+
     public Coupon() {
     }
 

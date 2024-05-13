@@ -7,7 +7,8 @@ public class CouponDto {
 
     @Getter
     @ToString
-    public static class ApplyCouponRequest{
+    public static class ApplyCouponRequest {
+
         private Long userId;
         private String couponName;
         private Double couponDiscountRate;

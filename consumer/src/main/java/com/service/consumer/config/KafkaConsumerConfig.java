@@ -16,8 +16,9 @@ public class KafkaConsumerConfig {
 
     private static final String KAFKA_CONSUMER_PORT = "localhost:9092";
     private static final String KAFKA_CONSUMER_GROUP = "group_1";
+
     @Bean
-    public ConsumerFactory<String,Long> consumerFactory() {
+    public ConsumerFactory<String, Long> consumerFactory() {
         Map<String, Object> config = new HashMap<>();
 
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KAFKA_CONSUMER_PORT);

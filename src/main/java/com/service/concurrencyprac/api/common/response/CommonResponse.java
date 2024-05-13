@@ -44,8 +44,8 @@ public class CommonResponse<T> {
             .build();
     }
 
-    public enum Result{
-        SUCCESS,FAIL
+    public enum Result {
+        SUCCESS, FAIL
     }
 
 }

@@ -22,7 +22,8 @@ class BoardApplicationTest {
         jdbcTemplate.update("INSERT INTO test_table VALUES (1, 'Kim')");
 
         //when
-        String result = jdbcTemplate.queryForObject("SELECT name FROM test_table WHERE id = 1", String.class);
+        String result = jdbcTemplate.queryForObject("SELECT name FROM test_table WHERE id = 1",
+            String.class);
 
         //then
         assertTrue("Kim".equals(result));

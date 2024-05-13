@@ -1,7 +1,6 @@
 package com.service.concurrencyprac.api.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.service.concurrencyprac.api.repository.CouponRepository;
 import java.util.concurrent.CountDownLatch;
@@ -30,7 +29,7 @@ class ApplyServiceTest {
     }
 
     @Test
-    public void 여러명응모() throws Exception{
+    public void 여러명응모() throws Exception {
         //given
         int threadCount = 1000;
         ExecutorService executorService = Executors.newFixedThreadPool(32);
@@ -57,7 +56,7 @@ class ApplyServiceTest {
     }
 
     @Test
-    public void 한명당_한개의쿠폰_발급() throws Exception{
+    public void 한명당_한개의쿠폰_발급() throws Exception {
         //given
         int threadCount = 1000;
         ExecutorService executorService = Executors.newFixedThreadPool(32);
