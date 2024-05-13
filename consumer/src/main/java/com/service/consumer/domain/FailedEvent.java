@@ -11,6 +11,7 @@ public class FailedEvent {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long userId;
+    private String userToken;
 
     public FailedEvent() {
 
