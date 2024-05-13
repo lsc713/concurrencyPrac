@@ -27,6 +27,7 @@ dependencies {
     implementation('org.springframework.kafka:spring-kafka')
 
     implementation 'org.apache.commons:commons-lang3:3.9'
+    implementation 'com.google.guava:guava:28.2-jre'
 }
 
 tasks.named('test') {
