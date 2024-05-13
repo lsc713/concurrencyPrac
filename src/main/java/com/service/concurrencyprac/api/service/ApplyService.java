@@ -4,9 +4,11 @@ import com.service.concurrencyprac.api.producer.CouponCreateProducer;
 import com.service.concurrencyprac.api.repository.AppliedUserRepository;
 import com.service.concurrencyprac.api.repository.CouponCountRepository;
 import com.service.concurrencyprac.api.repository.CouponRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class ApplyService {
 
     private final CouponRepository couponRepository;
@@ -28,6 +30,7 @@ public class ApplyService {
     public void apply(Long userId) {
         Long apply = appliedUserRepository.add(userId);
         if (apply != 1) {
+            log.error("요청이 지나감");
             return;
         }
         Long count = couponCountRepository.increment();
