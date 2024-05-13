@@ -23,6 +23,8 @@ public class ApplyService {
         this.appliedUserRepository = appliedUserRepository;
     }
 
+    /*TODO 이미지 지원한 것에 대한 추가 안내가 필요하고, 100개가 넘어가면 추가적인 안내가 필요함.
+    *  또한 지원이 됐다면 지원됐다는 안내도 필요.*/
     public void apply(Long userId) {
         Long apply = appliedUserRepository.add(userId);
         if (apply != 1) {
