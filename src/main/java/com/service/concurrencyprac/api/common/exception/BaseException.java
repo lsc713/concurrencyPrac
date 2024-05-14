@@ -1,6 +1,6 @@
-package com.service.concurrencyprac.common.exception;
+package com.service.concurrencyprac.api.common.exception;
 
-import com.service.concurrencyprac.common.response.ErrorCode;
+import com.service.concurrencyprac.api.common.response.ErrorCode;
 import lombok.Getter;
 
 @Getter

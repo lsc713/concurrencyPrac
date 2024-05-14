@@ -1,6 +1,6 @@
 package com.service.concurrencyprac.api.domain;
 
-import com.service.concurrencyprac.common.util.TokenGenerator;
+import com.service.concurrencyprac.api.common.util.TokenGenerator;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

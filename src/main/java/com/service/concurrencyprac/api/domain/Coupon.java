@@ -1,7 +1,7 @@
 package com.service.concurrencyprac.api.domain;
 
-import com.service.concurrencyprac.common.exception.InvalidParamException;
-import com.service.concurrencyprac.common.util.TokenGenerator;
+import com.service.concurrencyprac.api.common.exception.InvalidParamException;
+import com.service.concurrencyprac.api.common.util.TokenGenerator;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
