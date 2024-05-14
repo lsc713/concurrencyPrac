@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.config;
+package com.service.concurrencyprac.config;
 
 import java.util.HashMap;
 import java.util.Map;

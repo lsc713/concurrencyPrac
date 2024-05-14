@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.config;
+package com.service.concurrencyprac.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

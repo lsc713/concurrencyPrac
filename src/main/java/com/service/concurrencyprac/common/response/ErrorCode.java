@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.common.response;
+package com.service.concurrencyprac.common.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
