@@ -12,6 +12,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf((auth) -> auth.disable());
+        http
+            .formLogin((auth) -> auth
+                .loginPage("/login")//로그인 페이지
+                .loginProcessingUrl("/loginProc")
+                .permitAll());//괄호안에 있는 곳에서 넘어오면 로그인 진행
+
         http
             .authorizeRequests((auth) -> auth.requestMatchers("/", "/login").permitAll()
                 .requestMatchers("/admin").hasRole("ADMIN")
