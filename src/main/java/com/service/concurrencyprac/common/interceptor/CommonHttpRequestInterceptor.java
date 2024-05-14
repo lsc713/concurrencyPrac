@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.common.interceptor;
+package com.service.concurrencyprac.common.interceptor;
 
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;

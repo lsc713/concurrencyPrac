@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.common.util;
+package com.service.concurrencyprac.common.util;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
