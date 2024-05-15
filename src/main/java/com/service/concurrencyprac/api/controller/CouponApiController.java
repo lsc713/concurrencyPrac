@@ -2,7 +2,7 @@ package com.service.concurrencyprac.api.controller;
 
 import com.service.concurrencyprac.common.response.CommonResponse;
 import com.service.concurrencyprac.api.dto.CouponDto;
-import com.service.concurrencyprac.api.service.ApplyService;
+import com.service.concurrencyprac.api.domain.coupon.ApplyService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

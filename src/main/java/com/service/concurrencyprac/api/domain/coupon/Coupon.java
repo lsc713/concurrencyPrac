@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.domain;
+package com.service.concurrencyprac.api.domain.coupon;
 
 import com.service.concurrencyprac.common.exception.InvalidParamException;
 import com.service.concurrencyprac.common.util.TokenGenerator;

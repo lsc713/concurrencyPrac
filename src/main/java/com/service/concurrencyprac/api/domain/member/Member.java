@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.domain;
+package com.service.concurrencyprac.api.domain.member;
 
 import com.service.concurrencyprac.common.util.TokenGenerator;
 import jakarta.persistence.Entity;
@@ -36,7 +36,7 @@ public class Member {
 
     @Getter
     @RequiredArgsConstructor
-    private enum Status {
+    public enum Status {
         ACTIVATE("활성화"), DISABLED("비활성화");
 
         private final String description;

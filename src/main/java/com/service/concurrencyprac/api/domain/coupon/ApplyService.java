@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.service;
+package com.service.concurrencyprac.api.domain.coupon;
 
 import com.service.concurrencyprac.api.producer.CouponCreateProducer;
 import com.service.concurrencyprac.api.repository.AppliedUserRepository;
