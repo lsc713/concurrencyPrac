@@ -3,9 +3,7 @@ package com.service.concurrencyprac.api.domain.member;
 import com.service.concurrencyprac.api.domain.member.Member.Role;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class MemberCommand {
 

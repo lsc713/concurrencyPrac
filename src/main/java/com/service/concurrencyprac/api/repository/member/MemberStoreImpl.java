@@ -2,7 +2,6 @@ package com.service.concurrencyprac.api.repository.member;
 
 import com.service.concurrencyprac.api.domain.member.Member;
 import com.service.concurrencyprac.api.domain.member.MemberStore;
-import com.service.concurrencyprac.common.exception.BaseException;
 import com.service.concurrencyprac.common.exception.EntityNotFoundException;
 import com.service.concurrencyprac.common.exception.InvalidParamException;
 import lombok.RequiredArgsConstructor;

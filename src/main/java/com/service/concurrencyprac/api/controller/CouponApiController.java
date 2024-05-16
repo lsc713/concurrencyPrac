@@ -1,8 +1,8 @@
 package com.service.concurrencyprac.api.controller;
 
-import com.service.concurrencyprac.common.response.CommonResponse;
-import com.service.concurrencyprac.api.dto.CouponDto;
 import com.service.concurrencyprac.api.domain.coupon.ApplyService;
+import com.service.concurrencyprac.api.dto.CouponDTO;
+import com.service.concurrencyprac.common.response.CommonResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ public class CouponApiController {
     }
 
     @PostMapping
-    public CommonResponse ApplyCoupon(@RequestBody CouponDto.ApplyCouponRequest request) {
+    public CommonResponse ApplyCoupon(@RequestBody CouponDTO.ApplyCouponRequest request) {
         Long userId = request.getUserId();
 
         applyService.apply(userId);

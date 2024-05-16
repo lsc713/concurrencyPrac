@@ -1,6 +1,5 @@
 package com.service.concurrencyprac.api.domain.member;
 
-import com.service.concurrencyprac.api.domain.member.Member.Status;
 import lombok.Getter;
 
 @Getter

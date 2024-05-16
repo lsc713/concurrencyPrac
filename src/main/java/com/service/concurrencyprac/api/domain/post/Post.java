@@ -6,13 +6,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.Comments;
 
 @Getter
 @Entity
@@ -24,7 +22,7 @@ public class Post extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String userToken;
+    private String nickName;
     private String title;
     private String contents;
     private String postToken;
@@ -33,9 +31,9 @@ public class Post extends BaseEntity {
     //private Long thumbUp;
 
     @Builder
-    public Post(String userToken, String title, String contents) {
+    public Post(String nickName, String title, String contents) {
         this.postToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_POST);
-        this.userToken = userToken;
+        this.nickName = nickName;
         this.title = title;
         this.contents = contents;
 

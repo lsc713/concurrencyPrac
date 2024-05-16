@@ -3,7 +3,7 @@ package com.service.concurrencyprac.api.dto;
 import lombok.Getter;
 import lombok.ToString;
 
-public class CouponDto {
+public class CouponDTO {
 
     @Getter
     @ToString
