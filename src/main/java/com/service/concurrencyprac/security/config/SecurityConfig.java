@@ -2,6 +2,8 @@ package com.service.concurrencyprac.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +19,14 @@ public class SecurityConfig {
     }
 
     @Bean
+    public RoleHierarchy roleHierarchy() {
+
+        RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
+        hierarchy.setHierarchy("ROLE_ADMIN> ROLE_MANAGER\n" + "ROLE_MANAGER > ROLE-UESR");
+        return hierarchy;
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf((auth) -> auth.disable());
         http
@@ -26,9 +36,12 @@ public class SecurityConfig {
                 .permitAll());//괄호안에 있는 곳에서 넘어오면 로그인 진행
 
         http
-            .authorizeRequests((auth) -> auth.requestMatchers("/", "/login", "/signup").permitAll()
-                .requestMatchers("/admin").hasRole("ADMIN")
-                .requestMatchers("/my/**").hasAnyRole("ADMIN","USER")
+            .authorizeRequests((auth) -> auth
+                .requestMatchers("/", "/login", "/signup").permitAll()
+                .requestMatchers("/").hasAnyRole("UESR")
+                .requestMatchers("/manager").hasAnyRole("MANAGER")
+                .requestMatchers("/admin").hasAnyRole("ADMIN")
+                .requestMatchers("/my/**").hasAnyRole("ADMIN","MANAGER","USER")
                 .anyRequest().authenticated());
 
         http

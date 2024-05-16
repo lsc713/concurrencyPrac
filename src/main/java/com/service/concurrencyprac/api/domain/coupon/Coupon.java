@@ -55,7 +55,7 @@ public class Coupon {
 
     @Getter
     @RequiredArgsConstructor
-    private enum Status {
+    public enum Status {
         ACTIVATE("사용 가능"),
         DISABLE("사용 불가");
         private final String description;
