@@ -30,6 +30,8 @@ public class Member {
     private String email;
     private String name;
     private String nickName;
+    private String password;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -53,10 +55,11 @@ public class Member {
     }
 
     @Builder
-    public Member(String email, String name, String nickName, Role role) {
+    public Member(String email, String password, String name, String nickName, Role role) {
 
         this.userToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_MEMBER);
         this.email = email;
+        this.password = password;
         this.name = name;
         this.nickName = nickName;
         this.status = Status.ACTIVATE;

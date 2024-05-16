@@ -19,6 +19,8 @@ public class MemberDTO {
         private String email;
         @NotBlank(message = "이름은 필수값입니다.")
         private String memberName;
+        @NotBlank(message = "비밀번호는 필수값입니다.")
+        private String password;
         @NotBlank(message = "닉네임은 필수값입니다.")
         private String nickName;
         @NotBlank(message = "권한을 설정해주세요")
@@ -27,6 +29,7 @@ public class MemberDTO {
         public MemberCommand.SignupMemberRequest toCommand() {
             return MemberCommand.SignupMemberRequest.builder()
                 .email(email)
+                .password(password)
                 .memberName(memberName)
                 .nickName(nickName)
                 .role(role)
