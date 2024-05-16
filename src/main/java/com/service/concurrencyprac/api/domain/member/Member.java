@@ -30,6 +30,8 @@ public class Member {
     private String email;
     private String name;
     private String nickName;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -42,14 +44,23 @@ public class Member {
         private final String description;
     }
 
+    @Getter
+    @RequiredArgsConstructor
+    public enum Role{
+        ADMIN("관리자"), USER("일반유저")
+        ;
+        private final String description;
+    }
+
     @Builder
-    public Member(String email, String name, String nickName) {
+    public Member(String email, String name, String nickName, Role role) {
 
         this.userToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_MEMBER);
         this.email = email;
         this.name = name;
         this.nickName = nickName;
         this.status = Status.ACTIVATE;
+        this.role = role;
     }
 
     public void enable() {

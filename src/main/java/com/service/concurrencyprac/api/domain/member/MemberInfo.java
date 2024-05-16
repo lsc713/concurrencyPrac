@@ -11,6 +11,7 @@ public class MemberInfo {
     private final String memberName;
     private final String email;
     private final Member.Status status;
+    private final Member.Role role;
 
     public MemberInfo(Member member) {
         this.id = member.getId();
@@ -18,6 +19,7 @@ public class MemberInfo {
         this.memberName = member.getName();
         this.email = member.getEmail();
         this.status = member.getStatus();
+        this.role = member.getRole();
     }
 
 }

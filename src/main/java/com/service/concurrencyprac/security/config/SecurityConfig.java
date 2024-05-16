@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .permitAll());//괄호안에 있는 곳에서 넘어오면 로그인 진행
 
         http
-            .authorizeRequests((auth) -> auth.requestMatchers("/", "/login").permitAll()
+            .authorizeRequests((auth) -> auth.requestMatchers("/", "/login", "/signup").permitAll()
                 .requestMatchers("/admin").hasRole("ADMIN")
                 .requestMatchers("/my/**").hasAnyRole("ADMIN","USER")
                 .anyRequest().authenticated());
