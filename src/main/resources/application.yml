@@ -8,3 +8,8 @@ spring:
     url: jdbc:mysql://127.0.0.1:3309/coupon
     username: root
     password: 1234
+
+server:
+  servlet:
+    session:
+      timeout: 90m

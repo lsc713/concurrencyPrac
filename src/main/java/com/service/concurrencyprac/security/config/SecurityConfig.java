@@ -31,6 +31,13 @@ public class SecurityConfig {
                 .requestMatchers("/my/**").hasAnyRole("ADMIN","USER")
                 .anyRequest().authenticated());
 
+        http
+            .sessionManagement((auth) -> auth.maximumSessions(1)
+                .maxSessionsPreventsLogin(true));//추가로그인시 이전 세션무효화
+        http
+            .sessionManagement((auth) -> auth.sessionFixation()
+                .changeSessionId());//세션고정공격 방지를 위해 세션아이디변경
+
         return http.build();
     }
 }
