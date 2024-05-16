@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.repository;
+package com.service.concurrencyprac.api.repository.coupon;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;

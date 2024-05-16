@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.repository;
+package com.service.concurrencyprac.api.repository.member;
 
 import com.service.concurrencyprac.api.domain.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -3,7 +3,7 @@ package com.service.concurrencyprac.api.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.service.concurrencyprac.api.domain.coupon.ApplyService;
-import com.service.concurrencyprac.api.repository.CouponRepository;
+import com.service.concurrencyprac.api.repository.coupon.CouponRepository;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

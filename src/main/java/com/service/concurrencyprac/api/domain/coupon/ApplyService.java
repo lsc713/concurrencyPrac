@@ -1,9 +1,9 @@
 package com.service.concurrencyprac.api.domain.coupon;
 
 import com.service.concurrencyprac.api.producer.CouponCreateProducer;
-import com.service.concurrencyprac.api.repository.AppliedUserRepository;
-import com.service.concurrencyprac.api.repository.CouponCountRepository;
-import com.service.concurrencyprac.api.repository.CouponRepository;
+import com.service.concurrencyprac.api.repository.coupon.AppliedUserRepository;
+import com.service.concurrencyprac.api.repository.coupon.CouponCountRepository;
+import com.service.concurrencyprac.api.repository.coupon.CouponRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
