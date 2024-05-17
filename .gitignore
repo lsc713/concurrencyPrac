@@ -19,6 +19,8 @@ bin/
 
 ### IntelliJ IDEA ###
 application.yml
+application-secret.yml
+application-dev.yml
 .idea
 *.iws
 *.iml

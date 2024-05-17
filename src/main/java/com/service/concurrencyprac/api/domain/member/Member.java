@@ -49,7 +49,7 @@ public class Member {
     @Getter
     @RequiredArgsConstructor
     public enum Role{
-        ADMIN("관리자"), USER("일반유저")
+        ADMIN("관리자"),MANAGER("매니저"), USER("일반유저")
         ;
         private final String description;
     }

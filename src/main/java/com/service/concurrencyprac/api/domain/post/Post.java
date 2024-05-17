@@ -49,4 +49,12 @@ public class Post extends BaseEntity {
         ;
         public final String description;
     }
+
+    @Getter
+    @RequiredArgsConstructor
+    public enum Category{
+        Movie("영화"),Daily("일상")
+        ;
+        public final String description;
+    }
 }
