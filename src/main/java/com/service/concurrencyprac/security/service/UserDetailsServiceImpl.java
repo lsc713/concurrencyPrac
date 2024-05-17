@@ -21,6 +21,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             .orElseThrow(
                 () -> new EntityNotFoundException("member.email() In UserDetailsServiceImpl"));
 
-        return new userDetailsImpl(userData);
+        return new UserDetailsImpl(userData);
     }
 }

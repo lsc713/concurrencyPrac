@@ -1,50 +1,52 @@
 package com.service.concurrencyprac.security.service;
 
 import com.service.concurrencyprac.api.domain.member.Member;
+import com.service.concurrencyprac.api.domain.member.Member.Role;
 import com.service.concurrencyprac.api.domain.member.Member.Status;
 import java.util.ArrayList;
 import java.util.Collection;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class userDetailsImpl implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
-    private Member userData;
+    private final Member member;
 
-    public userDetailsImpl(Member userData) {
-        this.userData = userData;
+    public UserDetailsImpl(Member userData) {
+        this.member = userData;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        Role role = member.getRole();
+        String roleDescription = role.getDescription();
+
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(roleDescription);
         Collection<GrantedAuthority> collection = new ArrayList<>();
-        collection.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return String.valueOf(userData.getRole());
-            }
-        });
+        collection.add(simpleGrantedAuthority);
         return collection;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return member.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return userData.getEmail();
+        return member.getEmail();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return userData.getStatus() == Status.ACTIVATE;
+        return member.getStatus() == Status.ACTIVATE;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return userData.getStatus() == Status.ACTIVATE;
+        return member.getStatus() == Status.ACTIVATE;
     }
 
     @Override
@@ -54,6 +56,6 @@ public class userDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return userData.getStatus() == Status.ACTIVATE;
+        return member.getStatus() == Status.ACTIVATE;
     }
 }

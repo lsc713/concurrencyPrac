@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Getter
@@ -26,6 +27,7 @@ public class Post extends BaseEntity {
     private String title;
     private String contents;
     private String postToken;
+    private Status status;
 
 //    private List<Comment> comments;
     //private Long thumbUp;
@@ -36,7 +38,15 @@ public class Post extends BaseEntity {
         this.nickName = nickName;
         this.title = title;
         this.contents = contents;
+        this.status = Status.ACTIVATE;
 
+    }
 
+    @Getter
+    @RequiredArgsConstructor
+    public enum Status{
+        ACTIVATE("활성화"),DISABLE("비활성화")
+        ;
+        public final String description;
     }
 }
