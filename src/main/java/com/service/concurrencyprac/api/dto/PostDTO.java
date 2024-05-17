@@ -31,6 +31,26 @@ public class PostDTO {
 
     @Getter
     @ToString
+    public static class fetchPostOne {
+
+        @NotBlank(message = "제목은 필수값입니다.")
+        private String title;
+        @NotBlank(message = "내용은 필수값입니다.")
+        private String contents;
+        @NotBlank(message = "닉네임은 필수값입니다.")
+        private String nickName;
+
+        public PostCommand.PostingCommand toCommand() {
+            return PostCommand.PostingCommand.builder()
+                .title(title)
+                .contents(contents)
+                .nickName(nickName)
+                .build();
+        }
+    }
+
+    @Getter
+    @ToString
     public static class PostResponse {
 
         private final String postToken;

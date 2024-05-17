@@ -3,6 +3,7 @@ package com.service.concurrencyprac.api.repository.post;
 import com.service.concurrencyprac.api.domain.post.Post;
 import com.service.concurrencyprac.api.domain.post.PostReader;
 import com.service.concurrencyprac.common.exception.EntityNotFoundException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -24,5 +25,10 @@ public class PostReadImpl implements PostReader {
     public Post getPost(Long postId) {
         return postRepository.findById(postId)
             .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public List<Post> getAllPosts() {
+        return postRepository.findAllByOrderByCreatedAtDesc();
     }
 }

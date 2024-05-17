@@ -1,6 +1,8 @@
 package com.service.concurrencyprac.api.domain.post;
 
 import com.service.concurrencyprac.api.domain.post.PostCommand.PostingCommand;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,5 +29,17 @@ public class PostServiceImpl implements PostService{
     public PostInfo getPostInfo(String postToken) {
         Post post = postReader.getPost(postToken);
         return new PostInfo(post);
+    }
+
+    @Override
+    public List<PostInfo> fetchAllPosts() {
+        List<PostInfo> fetchAllPosts = new ArrayList<>();
+
+        List<Post> allPosts = postReader.getAllPosts();
+        for (Post allPost : allPosts) {
+            PostInfo postInfo = new PostInfo(allPost);
+            fetchAllPosts.add(postInfo);
+        }
+        return fetchAllPosts;
     }
 }
