@@ -32,13 +32,13 @@ public class SecurityConfig {
         http
             .formLogin((auth) -> auth
                 .loginPage("/login")//로그인 페이지
+                .permitAll()
                 .loginProcessingUrl("/loginProc")
                 .permitAll());//괄호안에 있는 곳에서 넘어오면 로그인 진행
 
         http
             .authorizeRequests((auth) -> auth
-                .requestMatchers("/", "/login", "/signup").permitAll()
-                .requestMatchers("/").hasAnyRole("UESR")
+                .requestMatchers("/", "/login", "/signup","/api/v1/**").permitAll()
                 .requestMatchers("/manager").hasAnyRole("MANAGER")
                 .requestMatchers("/admin").hasAnyRole("ADMIN")
                 .requestMatchers("/my/**").hasAnyRole("ADMIN","MANAGER","USER")
