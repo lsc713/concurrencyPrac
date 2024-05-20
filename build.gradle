@@ -53,7 +53,16 @@ dependencies {
     // AWS
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
+    //iamport
+    implementation 'com.github.iamport:iamport-rest-client-java:0.2.21'
 
+}
+
+
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
 }
 
 tasks.named('test') {
