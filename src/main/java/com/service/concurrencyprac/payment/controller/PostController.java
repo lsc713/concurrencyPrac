@@ -1,10 +1,10 @@
-package com.service.concurrencyprac.api.controller;
+package com.service.concurrencyprac.payment.controller;
 
-import static com.service.concurrencyprac.api.domain.post.PostCommand.*;
-import static com.service.concurrencyprac.api.dto.PostDTO.*;
+import static com.service.concurrencyprac.payment.entity.post.PostCommand.*;
+import static com.service.concurrencyprac.payment.dto.PostDTO.*;
 
-import com.service.concurrencyprac.api.domain.post.PostInfo;
-import com.service.concurrencyprac.api.repository.post.PostService;
+import com.service.concurrencyprac.payment.entity.post.PostInfo;
+import com.service.concurrencyprac.payment.repository.post.PostService;
 import com.service.concurrencyprac.common.response.CommonResponse;
 import com.service.concurrencyprac.security.service.UserDetailsImpl;
 import jakarta.validation.Valid;

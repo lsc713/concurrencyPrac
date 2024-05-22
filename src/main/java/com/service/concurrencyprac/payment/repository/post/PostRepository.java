@@ -1,6 +1,6 @@
-package com.service.concurrencyprac.api.repository.post;
+package com.service.concurrencyprac.payment.repository.post;
 
-import com.service.concurrencyprac.api.domain.post.Post;
+import com.service.concurrencyprac.payment.entity.post.Post;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

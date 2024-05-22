@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.producer;
+package com.service.concurrencyprac.payment.producer;
 
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;

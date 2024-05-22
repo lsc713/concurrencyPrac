@@ -1,11 +1,11 @@
 package com.service.concurrencyprac.api.service.impl;
 
-import com.service.concurrencyprac.api.domain.post.Post;
-import com.service.concurrencyprac.api.domain.post.PostCommand.PostingCommand;
-import com.service.concurrencyprac.api.domain.post.PostInfo;
-import com.service.concurrencyprac.api.domain.post.PostReader;
-import com.service.concurrencyprac.api.domain.post.PostStore;
-import com.service.concurrencyprac.api.repository.post.PostService;
+import com.service.concurrencyprac.payment.entity.post.Post;
+import com.service.concurrencyprac.payment.entity.post.PostCommand.PostingCommand;
+import com.service.concurrencyprac.payment.entity.post.PostInfo;
+import com.service.concurrencyprac.payment.entity.post.PostReader;
+import com.service.concurrencyprac.payment.entity.post.PostStore;
+import com.service.concurrencyprac.payment.repository.post.PostService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;

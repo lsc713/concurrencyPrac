@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.dto;
+package com.service.concurrencyprac.payment.dto;
 
 import lombok.Getter;
 import lombok.ToString;

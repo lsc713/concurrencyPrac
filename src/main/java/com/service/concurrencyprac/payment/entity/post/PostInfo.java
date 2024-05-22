@@ -1,8 +1,5 @@
-package com.service.concurrencyprac.api.domain.post;
+package com.service.concurrencyprac.payment.entity.post;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Getter;
 
 @Getter

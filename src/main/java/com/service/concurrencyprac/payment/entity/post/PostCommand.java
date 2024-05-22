@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.domain.post;
+package com.service.concurrencyprac.payment.entity.post;
 
 import lombok.Builder;
 import lombok.Getter;

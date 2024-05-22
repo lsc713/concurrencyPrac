@@ -1,8 +1,8 @@
-package com.service.concurrencyprac.api.dto;
+package com.service.concurrencyprac.payment.dto;
 
-import com.service.concurrencyprac.api.domain.post.Post;
-import com.service.concurrencyprac.api.domain.post.PostCommand;
-import com.service.concurrencyprac.api.domain.post.PostInfo;
+import com.service.concurrencyprac.payment.entity.post.Post;
+import com.service.concurrencyprac.payment.entity.post.PostCommand;
+import com.service.concurrencyprac.payment.entity.post.PostInfo;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.ToString;

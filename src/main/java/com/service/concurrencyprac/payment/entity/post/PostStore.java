@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.domain.post;
+package com.service.concurrencyprac.payment.entity.post;
 
 public interface PostStore {
 

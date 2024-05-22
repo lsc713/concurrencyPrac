@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.api.controller;
+package com.service.concurrencyprac.payment.controller;
 
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;

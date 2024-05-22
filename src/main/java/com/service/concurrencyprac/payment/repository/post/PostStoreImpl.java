@@ -1,7 +1,7 @@
-package com.service.concurrencyprac.api.repository.post;
+package com.service.concurrencyprac.payment.repository.post;
 
-import com.service.concurrencyprac.api.domain.post.Post;
-import com.service.concurrencyprac.api.domain.post.PostStore;
+import com.service.concurrencyprac.payment.entity.post.Post;
+import com.service.concurrencyprac.payment.entity.post.PostStore;
 import com.service.concurrencyprac.common.exception.InvalidParamException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

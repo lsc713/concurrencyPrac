@@ -1,10 +1,9 @@
-package com.service.concurrencyprac.api.repository.post;
+package com.service.concurrencyprac.payment.repository.post;
 
 import static com.service.concurrencyprac.api.domain.post.QPost.post;
 
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.service.concurrencyprac.api.domain.post.Post;
+import com.service.concurrencyprac.payment.entity.post.Post;
 import com.service.concurrencyprac.config.QuerydslConfig;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
