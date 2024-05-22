@@ -1,6 +1,6 @@
 package com.service.concurrencyprac.common.image.entity;
 
-import com.service.concurrencyprac.api.domain.post.Post;
+import com.service.concurrencyprac.payment.entity.post.Post;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,7 +13,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 
 @Entity
 @Getter

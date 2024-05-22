@@ -1,6 +1,6 @@
 package com.service.concurrencyprac.common.image.repository;
 
-import com.service.concurrencyprac.api.domain.post.Post;
+import com.service.concurrencyprac.payment.entity.post.Post;
 import com.service.concurrencyprac.common.image.entity.Image;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
