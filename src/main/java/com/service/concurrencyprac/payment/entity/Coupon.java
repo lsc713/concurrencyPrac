@@ -32,8 +32,8 @@ public class Coupon extends BaseEntity {
     @Column(length = 50)
     private String type;
 
-    @Column(precision = 10,scale = 2)
-    private BigDecimal value;
+    @Column
+    private Double value;
 
     @OneToMany(mappedBy = "coupon")
     private List<IssuedCoupon> issuedCoupons;

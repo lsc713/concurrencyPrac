@@ -31,7 +31,7 @@ public class IssuedCoupon extends BaseEntity {
     @JoinColumn(name = "coupon_id")
     private Coupon coupon;
 
-    @OneToOne(mappedBy = "usedIssuedCoupon")
+    @OneToOne
     private Order usedOrder;
 
     @Column(columnDefinition = BOOLEAN_DEFINITION)

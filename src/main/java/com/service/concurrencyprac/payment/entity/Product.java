@@ -21,8 +21,8 @@ public class Product extends BaseEntity {
     private Long id;
     @Column(length = 255) // varchar 255 처럼 문자열 지정으로 255자까지 지정가능
     private String name;
-    @Column(precision = 10, scale = 2) //10자리 숫자,소수 점은2자리 즉,정수 표현은 8자리
-    private double price;
+    @Column
+    private Double price;
 
     @Column(columnDefinition = INT_DEFINITION) //칼럼 직접지정 int열이며 기본값은 0.
     private int stock;
