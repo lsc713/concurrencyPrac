@@ -2,7 +2,7 @@ package com.service.concurrencyprac.api.controller;
 
 import com.service.concurrencyprac.api.domain.member.MemberCommand.SignupMemberRequest;
 import com.service.concurrencyprac.api.domain.member.MemberInfo;
-import com.service.concurrencyprac.api.domain.member.SignupServiceImpl;
+import com.service.concurrencyprac.api.service.impl.UserServiceImpl;
 import com.service.concurrencyprac.api.dto.MemberDTO;
 import com.service.concurrencyprac.common.response.CommonResponse;
 import jakarta.validation.Valid;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SignupController {
 
-    private final SignupServiceImpl signupService;
+    private final UserServiceImpl signupService;
 
     @PostMapping
     public CommonResponse signUp(@RequestBody @Valid MemberDTO.SignupRequest request) {

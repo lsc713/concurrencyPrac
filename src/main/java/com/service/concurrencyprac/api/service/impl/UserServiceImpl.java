@@ -1,5 +1,10 @@
-package com.service.concurrencyprac.api.domain.member;
+package com.service.concurrencyprac.api.service.impl;
 
+import com.service.concurrencyprac.api.domain.member.Member;
+import com.service.concurrencyprac.api.domain.member.MemberCommand.SignupMemberRequest;
+import com.service.concurrencyprac.api.domain.member.MemberInfo;
+import com.service.concurrencyprac.api.domain.member.MemberStore;
+import com.service.concurrencyprac.api.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,13 +13,13 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class SignupServiceImpl implements MemberService{
+public class UserServiceImpl implements MemberService {
 
     private final BCryptPasswordEncoder passwordEncoder;
     private final MemberStore memberStore;
 
     @Override
-    public MemberInfo signup(MemberCommand.SignupMemberRequest command) {
+    public MemberInfo signup(SignupMemberRequest command) {
         String encoded = passwordEncoder.encode(command.getPassword());
         Member initMember = command.toEntity(encoded);
 

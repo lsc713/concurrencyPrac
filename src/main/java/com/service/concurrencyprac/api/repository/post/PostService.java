@@ -1,6 +1,7 @@
-package com.service.concurrencyprac.api.domain.post;
+package com.service.concurrencyprac.api.repository.post;
 
 import com.service.concurrencyprac.api.domain.post.PostCommand.PostingCommand;
+import com.service.concurrencyprac.api.domain.post.PostInfo;
 import java.util.List;
 
 public interface PostService {

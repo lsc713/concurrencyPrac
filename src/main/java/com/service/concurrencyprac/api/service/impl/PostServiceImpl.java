@@ -1,7 +1,11 @@
-package com.service.concurrencyprac.api.domain.post;
+package com.service.concurrencyprac.api.service.impl;
 
+import com.service.concurrencyprac.api.domain.post.Post;
 import com.service.concurrencyprac.api.domain.post.PostCommand.PostingCommand;
-import java.util.ArrayList;
+import com.service.concurrencyprac.api.domain.post.PostInfo;
+import com.service.concurrencyprac.api.domain.post.PostReader;
+import com.service.concurrencyprac.api.domain.post.PostStore;
+import com.service.concurrencyprac.api.repository.post.PostService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class PostServiceImpl implements PostService{
+public class PostServiceImpl implements PostService {
 
     private final PostStore postStore;
     private final PostReader postReader;
