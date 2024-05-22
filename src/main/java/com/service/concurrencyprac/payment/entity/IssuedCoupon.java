@@ -13,8 +13,10 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.util.Date;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class IssuedCoupon extends BaseEntity {
 
     private static final String BOOLEAN_DEFINITION = "boolean default false";

@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Entity
+@Getter
 public class PointLog extends BaseEntity {
 
     private static final String INT_DEFINITION = "int default 0";

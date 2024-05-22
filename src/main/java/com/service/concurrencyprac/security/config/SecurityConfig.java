@@ -36,17 +36,15 @@ public class SecurityConfig {
             .formLogin((auth) -> auth.disable())
             .httpBasic(AbstractHttpConfigurer::disable);
 
-
-
         http
             .sessionManagement(
                 (auth) -> auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
 
         http
             .authorizeRequests((auth) -> auth
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/actuator/health").permitAll()
                 .requestMatchers("/manager").hasAnyRole("MANAGER")
                 .requestMatchers("/admin").hasAnyRole("ADMIN")
                 .requestMatchers("/my/**").hasAnyRole("ADMIN","MANAGER","USER")

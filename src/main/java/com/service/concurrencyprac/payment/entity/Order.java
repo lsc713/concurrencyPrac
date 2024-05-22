@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.math.BigDecimal;
@@ -20,8 +21,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import javax.swing.text.DateFormatter;
+import lombok.Getter;
 
 @Entity
+@Getter
+@Table(name = "ORDER_ENTRY")
 public class Order {
     private static final String INT_DEFINITION = "int default 0";
     private static final String DATE_FORMAT = "yyyyMMddHHmmss";
