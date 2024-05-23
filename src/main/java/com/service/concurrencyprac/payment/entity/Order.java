@@ -1,5 +1,7 @@
 package com.service.concurrencyprac.payment.entity;
 
+import static com.service.concurrencyprac.payment.entity.Order.Status.*;
+
 import com.service.concurrencyprac.api.domain.member.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +20,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
+import java.util.Random;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -29,6 +32,9 @@ public class Order {
     private static final String DOUBLE_DEFINITION = "double default 0";
     private static final String DATE_FORMAT = "yyyyMMddHHmmss";
     private static final String REGEX_ORDER = "[^a-zA-Z0-9]";
+    private static final String COUPON_TYPE_PERCENT = "PERCENT-OFF";
+    private static final int ORDER_STRING_LENGTH = 15;
+    private static final int ALPHABET_LENGTH = 26;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,14 +55,14 @@ public class Order {
     @Getter
     @RequiredArgsConstructor
     public enum Status{
-        READY("준비됨"), COMPLETE("완료됨")
+        READY("준비됨"), COMPLETE("주문완료됨")
         ;
         private final String description;
     }
 
     @OneToMany(mappedBy = "order")
     @Column
-    private List<OrderItem> items;
+    private List<OrderItem> orderItems;
 
     @Column(columnDefinition = DOUBLE_DEFINITION)
     private Double pointAmountUsed;
@@ -80,10 +86,11 @@ public class Order {
     @Column
     private Object PGMetadata;
 
-    public Order(Member member, List<OrderItem> items, ShippingInfo shippingInfo) {
+    @Builder
+    public Order(Member member, List<OrderItem> orderItems, ShippingInfo shippingInfo) {
         this.member = member;
         this.amount = getCheckoutPrice();
-        this.items = items;
+        this.orderItems = orderItems;
         this.shippingInfo = shippingInfo;
         setOrderNo();
     }
@@ -94,14 +101,18 @@ public class Order {
     }
 
     private void setOrderNo() {
-        String dateFormat = DateTimeFormatter.ofPattern(DATE_FORMAT)
-            .format(LocalDateTime.now());
-        String randomString = UUID.randomUUID().toString().replace(REGEX_ORDER,"").substring(0,15);
+        String dateFormat = LocalDateTime
+            .now()
+            .format(DateTimeFormatter
+            .ofPattern(DATE_FORMAT));
+
+        StringBuilder randomString = generateRandomString(ORDER_STRING_LENGTH);
+
         this.orderNo = dateFormat + "_" + randomString;
     }
 
-    private double getCheckoutPrice() {
-        double amount = items.stream().mapToDouble(OrderItem::getEntryPrice).sum();
+    public double getCheckoutPrice() {
+        double amount = orderItems.stream().mapToDouble(OrderItem::getEntryPrice).sum();
         amount -= this.pointAmountUsed;
 
         Coupon coupon = this.usedIssuedCoupon.getCoupon();
@@ -114,7 +125,7 @@ public class Order {
     }
 
     private static double applyCouponDisCount(Coupon coupon, double amount) {
-        if (coupon.getCouponType().equalsIgnoreCase("PERCENT-OFF")) {
+        if (coupon.getCouponType().equalsIgnoreCase(COUPON_TYPE_PERCENT)) {
             return applyPercentOff(coupon, amount);
         }
         return applyFixedAmountOff(coupon, amount);
@@ -138,4 +149,21 @@ public class Order {
         this.amount = getCheckoutPrice();
     }
 
+    private static StringBuilder generateRandomString(int length) {
+        Random random = new Random();
+        StringBuilder randomString = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            char randomChar = (char) ('A' + random.nextInt(ALPHABET_LENGTH));
+            randomString.append(randomChar);
+        }
+        return randomString;
+    }
+
+    public void changeStatus_READY() {
+        this.status = READY;
+    }
+
+    public void changeStatus_COMPLETE() {
+        this.status = COMPLETE;
+    }
 }
