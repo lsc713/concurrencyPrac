@@ -5,6 +5,8 @@ import java.util.List;
 
 public interface ProductService {
 
+    Product getProductById(Long productId);
+
     public List<Product> getProductsByIds(List<Long> productsIds);
 
 }
