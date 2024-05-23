@@ -2,6 +2,7 @@ package com.service.concurrencyprac.payment.entity;
 
 import com.service.concurrencyprac.api.domain.BaseEntity;
 import com.service.concurrencyprac.api.domain.member.Member;
+import com.service.concurrencyprac.common.exception.InvalidParamException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +32,13 @@ public class Point extends BaseEntity {
     private List<PointLog> logs;
 
     public void use(int amountToUse) {
+        if (amountToUse > availableAmount) {
+            throw new InvalidParamException();
+        }
         this.availableAmount -= amountToUse;
+    }
+
+    public void addLog(PointLog log) {
+        this.logs.add(log);
     }
 }

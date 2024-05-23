@@ -8,11 +8,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PointLog extends BaseEntity {
 
     private static final String INT_DEFINITION = "int default 0";
@@ -37,19 +41,17 @@ public class PointLog extends BaseEntity {
     @Getter
     @RequiredArgsConstructor
     public enum Type{
-        SPEND("사용"),EARN("적립");
+        SPEND("사용"),
+        EARN("적립")
+        ;
         private final String description;
     }
 
-    public void use(int amount, String reason) {
+    @Builder
+    public PointLog(Point point, int amount, String reason, Type type) {
+        this.point = point;
         this.amount = amount;
         this.reason = reason;
-        this.type = Type.SPEND;
-    }
-
-    public void add(int amount, String reason) {
-        this.amount = amount;
-        this.reason = reason;
-        this.type = Type.EARN;
+        this.type = type;
     }
 }
