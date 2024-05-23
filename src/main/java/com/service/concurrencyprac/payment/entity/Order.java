@@ -88,22 +88,6 @@ public class Order {
         setOrderNo();
     }
 
-    private double getCheckoutPrice() {
-        double amount = items.stream().mapToDouble(OrderItem::getEntryPrice).sum();
-        amount -= this.pointAmountUsed;
-
-        Coupon coupon = this.usedIssuedCoupon.getCoupon();
-        if (coupon != null) {
-            if (coupon.getCouponType().equalsIgnoreCase("PERCENT-OFF")) {
-                amount *= (1 - coupon.getAmount());
-            } else if (coupon.getCouponType().equalsIgnoreCase("FIXED-AMOUNT-OFF")) {
-                amount -= coupon.getAmount();
-            }
-        }
-        this.amount = amount;
-        return amount;
-    }
-
     public Order() {
         super();
         setOrderNo();
@@ -114,6 +98,34 @@ public class Order {
             .format(LocalDateTime.now());
         String randomString = UUID.randomUUID().toString().replace(REGEX_ORDER,"").substring(0,15);
         this.orderNo = dateFormat + "_" + randomString;
+    }
+
+    private double getCheckoutPrice() {
+        double amount = items.stream().mapToDouble(OrderItem::getEntryPrice).sum();
+        amount -= this.pointAmountUsed;
+
+        Coupon coupon = this.usedIssuedCoupon.getCoupon();
+        if (coupon != null) {
+            amount = applyCouponDisCount(coupon, amount);
+        }
+
+        this.amount = amount;
+        return amount;
+    }
+
+    private static double applyCouponDisCount(Coupon coupon, double amount) {
+        if (coupon.getCouponType().equalsIgnoreCase("PERCENT-OFF")) {
+            return applyPercentOff(coupon, amount);
+        }
+        return applyFixedAmountOff(coupon, amount);
+    }
+
+    private static double applyFixedAmountOff(Coupon coupon, double amount) {
+        return amount - coupon.getAmount();
+    }
+
+    private static double applyPercentOff(Coupon coupon, double amount) {
+        return amount * (1 - coupon.getAmount());
     }
 
     public void applyCouponToOrder(IssuedCoupon issuedCoupon) {
