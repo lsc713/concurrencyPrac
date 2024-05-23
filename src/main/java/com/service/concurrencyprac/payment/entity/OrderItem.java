@@ -25,4 +25,12 @@ public class OrderItem {
 
     @Column
     private int quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    public double getEntryPrice() {
+        return this.product.getPrice() * quantity;
+    }
 }

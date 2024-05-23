@@ -30,10 +30,10 @@ public class Coupon extends BaseEntity {
     private Long id;
 
     @Column(length = 50)
-    private String type;
+    private String couponType;
 
     @Column
-    private Double value;
+    private Double amount;
 
     @OneToMany(mappedBy = "coupon")
     private List<IssuedCoupon> issuedCoupons;

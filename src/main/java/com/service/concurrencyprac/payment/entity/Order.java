@@ -16,18 +16,17 @@ import jakarta.persistence.TemporalType;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import javax.swing.text.DateFormatter;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Getter
 @Table(name = "ORDER_ENTRY")
 public class Order {
-    private static final String INT_DEFINITION = "int default 0";
+    private static final String DOUBLE_DEFINITION = "double default 0";
     private static final String DATE_FORMAT = "yyyyMMddHHmmss";
     private static final String REGEX_ORDER = "[^a-zA-Z0-9]";
 
@@ -42,23 +41,31 @@ public class Order {
     private String orderNo;
 
     @Column
-    private BigDecimal amount;
+    private Double amount;
 
     @Column(length = 100)
-    private String status;
+    private Status status;
+
+    @Getter
+    @RequiredArgsConstructor
+    public enum Status{
+        READY("준비됨"), COMPLETE("완료됨")
+        ;
+        private final String description;
+    }
 
     @OneToMany(mappedBy = "order")
     @Column
     private List<OrderItem> items;
 
-    @Column(columnDefinition = INT_DEFINITION)
-    private int pointAmountUsed;
+    @Column(columnDefinition = DOUBLE_DEFINITION)
+    private Double pointAmountUsed;
 
     @OneToOne(mappedBy = "usedOrder")
     private IssuedCoupon usedIssuedCoupon;
 
     @OneToOne(mappedBy = "order")
-    private ShippingInfo shoppingInfo;
+    private ShippingInfo shippingInfo;
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
@@ -73,6 +80,30 @@ public class Order {
     @Column
     private Object PGMetadata;
 
+    public Order(Member member, List<OrderItem> items, ShippingInfo shippingInfo) {
+        this.member = member;
+        this.amount = getCheckoutPrice();
+        this.items = items;
+        this.shippingInfo = shippingInfo;
+        setOrderNo();
+    }
+
+    private double getCheckoutPrice() {
+        double amount = items.stream().mapToDouble(OrderItem::getEntryPrice).sum();
+        amount -= this.pointAmountUsed;
+
+        Coupon coupon = this.usedIssuedCoupon.getCoupon();
+        if (coupon != null) {
+            if (coupon.getCouponType().equalsIgnoreCase("PERCENT-OFF")) {
+                amount *= (1 - coupon.getAmount());
+            } else if (coupon.getCouponType().equalsIgnoreCase("FIXED-AMOUNT-OFF")) {
+                amount -= coupon.getAmount();
+            }
+        }
+        this.amount = amount;
+        return amount;
+    }
+
     public Order() {
         super();
         setOrderNo();
@@ -83,6 +114,16 @@ public class Order {
             .format(LocalDateTime.now());
         String randomString = UUID.randomUUID().toString().replace(REGEX_ORDER,"").substring(0,15);
         this.orderNo = dateFormat + "_" + randomString;
+    }
+
+    public void applyCouponToOrder(IssuedCoupon issuedCoupon) {
+        this.usedIssuedCoupon = issuedCoupon;
+        this.amount = getCheckoutPrice();
+    }
+
+    public void applyPointToOrder(Double pointAmountUsed) {
+        this.pointAmountUsed = pointAmountUsed;
+        this.amount = getCheckoutPrice();
     }
 
 }
