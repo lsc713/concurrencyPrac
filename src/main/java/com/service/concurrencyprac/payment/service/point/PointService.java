@@ -6,6 +6,6 @@ import com.service.concurrencyprac.payment.entity.PointLog.Type;
 
 public interface PointService {
 
-    public void usePoint(Point point, Member member, int amountToUse, String reason, Type type);
+    public void usePoint(Point point, int amountToUse, String reason, Type type);
 
 }

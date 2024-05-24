@@ -21,7 +21,7 @@ public class PointServiceImpl implements PointService {
 
     @Override
     @Transactional
-    public void usePoint(Point point, Member member, int amountToUse, String reason, Type type) {
+    public void usePoint(Point point, int amountToUse, String reason, Type type) {
         PointLog log = createAndSavePointLogForUse(point, amountToUse, reason);
 
         point.addLog(log);
