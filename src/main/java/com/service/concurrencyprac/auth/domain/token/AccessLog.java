@@ -10,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.time.LocalDateTime;
 import lombok.Getter;
 
 @Entity
@@ -30,10 +29,16 @@ public class AccessLog extends BaseEntity {
     @Column
     private String ip;
 
-    @Column
-    private LocalDateTime accessAt;
-
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", nullable = false)
     private Member member;
+
+    public AccessLog(){}
+
+    public AccessLog(String ua, String endpoint, String ip, Member member) {
+        this.ua = ua;
+        this.endpoint = endpoint;
+        this.ip = ip;
+        this.member = member;
+    }
 }
