@@ -22,7 +22,8 @@ import org.springframework.util.StringUtils;
 public class JwtProvider {
 
     public static final String BEARER_PREFIX = "Bearer ";
-    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String ACCESS_TOKEN_HEADER = "AccessToken";
+    public static final String REFRESH_TOKEN_HEADER = "RefreshToken";
     private final long ACCESS_TOKEN_TIME = 60 * 60 * 1000L;
     private final long REFRESH_TOKEN_TIME = 60 * 60 * 24 * 1000L * 7; //7days
 
@@ -37,11 +38,11 @@ public class JwtProvider {
         algorithm = SIG.HS256;
     }
 
-    public TokenPayload createTokenPayload(Long userId, TokenType tokenType) {
+    public TokenPayload createTokenPayload(String email, TokenType tokenType) {
         Date date = new Date();
         long tokenTime = TokenType.ACCESS.equals(tokenType) ? ACCESS_TOKEN_TIME : REFRESH_TOKEN_TIME;
         return new TokenPayload(
-            userId.toString(),
+            email,
             UUID.randomUUID().toString(),
             date,
             new Date(date.getTime() + tokenTime)
@@ -58,8 +59,8 @@ public class JwtProvider {
             .compact();
     }
 
-    public String getJwtFromHeader(HttpServletRequest request) {
-        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+    public String getJwtFromHeader(HttpServletRequest request, TokenType tokenType) {
+        String bearerToken = request.getHeader(TokenType.ACCESS.equals(tokenType) ? ACCESS_TOKEN_HEADER : REFRESH_TOKEN_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
             return bearerToken.substring(7);
         }
