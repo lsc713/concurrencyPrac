@@ -13,8 +13,8 @@ public class UserDetailsImpl implements UserDetails {
 
     private final Member member;
 
-    public UserDetailsImpl(Member userData) {
-        this.member = userData;
+    public UserDetailsImpl(Member member) {
+        this.member = member;
     }
 
     @Override
@@ -28,14 +28,21 @@ public class UserDetailsImpl implements UserDetails {
         return collection;
     }
 
+    public Member getMember() {
+        return member;
+    }
+
+    public String getEmail() {
+        return member.getEmail();
+    }
+
     @Override
     public String getPassword() {
         return member.getPassword();
     }
 
-    @Override
     public String getUsername() {
-        return member.getEmail();
+        return member.getName();
     }
 
     @Override
