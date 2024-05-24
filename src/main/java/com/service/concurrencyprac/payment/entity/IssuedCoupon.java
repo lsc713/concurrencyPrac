@@ -55,8 +55,8 @@ public class IssuedCoupon extends BaseEntity {
     private Date validUntil;
 
     public void use() {
-        this.isUsed = true;
-        this.isValid = false;
-        this.usedAt = new Date();
+        this.isUsed=true;
+        this.isValid=false;
+        this.usedAt=new Date();
     }
 }

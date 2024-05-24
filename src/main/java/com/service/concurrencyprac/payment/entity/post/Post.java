@@ -44,15 +44,17 @@ public class Post extends BaseEntity {
 
     @Getter
     @RequiredArgsConstructor
-    public enum Status {
-        ACTIVATE("활성화"), DISABLE("비활성화");
+    public enum Status{
+        ACTIVATE("활성화"),DISABLE("비활성화")
+        ;
         public final String description;
     }
 
     @Getter
     @RequiredArgsConstructor
-    public enum Category {
-        Movie("영화"), Daily("일상");
+    public enum Category{
+        Movie("영화"),Daily("일상")
+        ;
         public final String description;
     }
 }

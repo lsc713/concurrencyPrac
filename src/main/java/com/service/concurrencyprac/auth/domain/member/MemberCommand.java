@@ -11,7 +11,6 @@ public class MemberCommand {
     @Builder
     @ToString
     public static class SignupMemberRequest {
-
         private final String email;
         private final String password;
         private final String memberName;

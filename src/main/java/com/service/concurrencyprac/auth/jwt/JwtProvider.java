@@ -12,8 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.UUID;
 import javax.crypto.SecretKey;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -39,8 +39,7 @@ public class JwtProvider {
 
     public TokenPayload createTokenPayload(Long userId, TokenType tokenType) {
         Date date = new Date();
-        long tokenTime =
-            TokenType.ACCESS.equals(tokenType) ? ACCESS_TOKEN_TIME : REFRESH_TOKEN_TIME;
+        long tokenTime = TokenType.ACCESS.equals(tokenType) ? ACCESS_TOKEN_TIME : REFRESH_TOKEN_TIME;
         return new TokenPayload(
             userId.toString(),
             UUID.randomUUID().toString(),
@@ -55,7 +54,7 @@ public class JwtProvider {
             .expiration(payload.getExpiredAt())
             .issuedAt(payload.getIat())
             .id(payload.getJti())
-            .signWith(key, algorithm)
+            .signWith(key,algorithm)
             .compact();
     }
 

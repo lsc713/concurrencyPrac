@@ -40,9 +40,10 @@ public class PointLog extends BaseEntity {
 
     @Getter
     @RequiredArgsConstructor
-    public enum Type {
+    public enum Type{
         SPEND("사용"),
-        EARN("적립");
+        EARN("적립")
+        ;
         private final String description;
     }
 

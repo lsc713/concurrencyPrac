@@ -17,15 +17,9 @@ public class PostStoreImpl implements PostStore {
 
     @Override
     public Post store(Post post) {
-        if (StringUtils.isEmpty(post.getNickName())) {
-            throw new InvalidParamException("signupMember.getPartnerToken()");
-        }
-        if (StringUtils.isEmpty(post.getTitle())) {
-            throw new InvalidParamException("signupMember.getPartnerToken()");
-        }
-        if (StringUtils.isEmpty(post.getContents())) {
-            throw new InvalidParamException("signupMember.getPartnerToken()");
-        }
+        if (StringUtils.isEmpty(post.getNickName())) throw new InvalidParamException("signupMember.getPartnerToken()");
+        if (StringUtils.isEmpty(post.getTitle())) throw new InvalidParamException("signupMember.getPartnerToken()");
+        if (StringUtils.isEmpty(post.getContents())) throw new InvalidParamException("signupMember.getPartnerToken()");
 
         return postRepository.save(post);
     }

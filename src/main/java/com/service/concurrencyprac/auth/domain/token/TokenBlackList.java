@@ -28,8 +28,8 @@ public class TokenBlackList {
     @Enumerated(EnumType.STRING)
     private TokenType tokenType;
 
-    public enum TokenType {
-        ACCESS, REFRESH;
+    public enum TokenType{
+        ACCESS,REFRESH;
     }
 
     @Column
