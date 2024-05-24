@@ -28,12 +28,32 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAllById(productsIds);
     }
 
-    public void updateStocks(Map<Product, Integer> productQuantityMap) {
+    @Override
+    public void decreaseStockQuantity(Map<Product, Integer> productQuantityMap) {
         List<Product> result = productQuantityMap.entrySet().stream().map(entry -> {
             Product product = entry.getKey();
             Integer quantity = entry.getValue();
-            product.updateStock(quantity);
-            return product;
+            try {
+                product.decreaseStock(quantity);
+                return product;
+            } catch (Exception e) {
+                throw new RuntimeException("주문을 위해 상품재고 업데이트를 하는데 실패함" + product.getName(), e);
+            }
+        }).collect(Collectors.toList());
+        productRepository.saveAll(result);
+    }
+
+    @Override
+    public void increaseStockQuantity(Map<Product, Integer> productQuantityMap) {
+        List<Product> result = productQuantityMap.entrySet().stream().map(entry -> {
+            Product product = entry.getKey();
+            Integer quantity = entry.getValue();
+            try {
+                product.increaseStock(quantity);
+                return product;
+            } catch (Exception e) {
+                throw new RuntimeException("주문을 위해 상품재고 업데이트를 하는데 실패함" + product.getName(), e);
+            }
         }).collect(Collectors.toList());
         productRepository.saveAll(result);
     }

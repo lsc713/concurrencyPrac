@@ -4,7 +4,6 @@ import static com.service.concurrencyprac.common.response.ErrorCode.*;
 
 import com.service.concurrencyprac.api.domain.BaseEntity;
 import com.service.concurrencyprac.common.exception.InvalidParamException;
-import com.service.concurrencyprac.common.response.ErrorCode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -51,10 +50,14 @@ public class Product extends BaseEntity {
         private final String description;
     }
 
-    public void updateStock(Integer newStock) {
+    public void decreaseStock(Integer newStock) {
         if (this.stock - newStock < 0) {
             throw new InvalidParamException(OUT_OF_STOCK);
         }
         this.stock = this.stock - newStock;
+    }
+
+    public void increaseStock(Integer newStock) {
+        this.stock += newStock;
     }
 }
