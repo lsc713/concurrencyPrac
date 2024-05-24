@@ -55,7 +55,7 @@ public class Order {
     @Getter
     @RequiredArgsConstructor
     public enum Status{
-        READY("준비됨"), COMPLETE("주문완료됨")
+        READY("준비됨"), COMPLETE("주문완료됨"), CANCEL("주문취소")
         ;
         private final String description;
     }
@@ -165,5 +165,9 @@ public class Order {
 
     public void changeStatus_COMPLETE() {
         this.status = COMPLETE;
+    }
+
+    public void changeStatus_CANCEL() {
+        this.status = CANCEL;
     }
 }

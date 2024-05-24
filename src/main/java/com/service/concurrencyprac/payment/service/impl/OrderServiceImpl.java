@@ -24,8 +24,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderItemRepository orderItemRepository;
 
     @Override
-    public Order createOrder(Member member, List<OrderItem> orderItems, double finalAmount,
-        ShippingInfo shippingInfo) {
+    public Order createOrder(Member member, List<OrderItem> orderItems,ShippingInfo shippingInfo) {
         Order order = Order.builder()
             .member(member)
             .orderItems(orderItems)
@@ -74,6 +73,13 @@ public class OrderServiceImpl implements OrderService {
     public void applyCouponToOrder(Long orderId, IssuedCoupon issuedCoupon) {
         Order orderById = getOrderById(orderId);
         orderById.applyCouponToOrder(issuedCoupon);
+    }
+
+    @Override
+    public void cancelOrder(Long orderId) {
+        Order orderById = getOrderById(orderId);
+        orderById.changeStatus_CANCEL();
+        orderRepository.save(orderById);
     }
 
     @Override

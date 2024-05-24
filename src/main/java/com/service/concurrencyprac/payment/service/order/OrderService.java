@@ -11,8 +11,7 @@ import java.util.Map;
 
 public interface OrderService {
 
-    Order createOrder(Member member, List<OrderItem> orderItems, double finalAmount,
-        ShippingInfo shippingInfo);
+    Order createOrder(Member member, List<OrderItem> orderItems, ShippingInfo shippingInfo);
 
     public Order addOrderItem(Order order, Product product, int quantity);
 
@@ -26,6 +25,8 @@ public interface OrderService {
     void applyPointToOrder(Long orderId, Double point);
 
     void applyCouponToOrder(Long orderId, IssuedCoupon issuedCoupon);
+
+    void cancelOrder(Long orderId);
 
     void standByOrder(Long orderId);
     /*
