@@ -1,6 +1,6 @@
 package com.service.concurrencyprac.api.domain.member;
 
-import com.service.concurrencyprac.api.domain.member.Member.Role;
+import com.service.concurrencyprac.api.domain.member.Member.UserRole;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -15,7 +15,7 @@ public class MemberCommand {
         private final String password;
         private final String memberName;
         private final String nickName;
-        private final Role role;
+        private final UserRole role;
 
         public Member toEntity(String password) {
             return Member.builder()

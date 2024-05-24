@@ -1,18 +1,25 @@
 package com.service.concurrencyprac.api.domain.member;
 
+import com.service.concurrencyprac.api.domain.token.AccessLog;
+import com.service.concurrencyprac.api.domain.token.AccessToken;
+import com.service.concurrencyprac.api.domain.token.RefreshToken;
 import com.service.concurrencyprac.common.util.TokenGenerator;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.web.ServerProperties.Jetty.Accesslog;
 
 @Entity
 @Getter
@@ -27,35 +34,55 @@ public class Member {
     private Long id;
 
     private String userToken;
+    @Column
     private String email;
+    @Column
     private String name;
     private String nickName;
+    @Column
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private UserRole role;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @OneToMany(mappedBy = "user")
+    private List<AccessToken> accessTokens;
+
+    @OneToMany(mappedBy = "user")
+    private List<RefreshToken> refreshTokens;
+
+    @OneToMany(mappedBy = "user")
+    private List<AccessLog> accessLogs;
+
     @Getter
     @RequiredArgsConstructor
     public enum Status {
-        ACTIVATE("활성화"), DISABLED("비활성화");
+        ACTIVATE("활성화"), DISABLED("비활성화"),
+        ;
 
         private final String description;
     }
 
     @Getter
     @RequiredArgsConstructor
-    public enum Role{
-        ADMIN("관리자"),MANAGER("매니저"), USER("일반유저")
+    public enum UserRole {
+        ADMIN(Description.ADMIN),MANAGER(Description.MANAGER), USER(Description.USER)
         ;
         private final String description;
+
+        public static class Description{
+
+            public static final String USER = "일반유저";
+            public static final String MANAGER = "중간관리자";
+            public static final String ADMIN = "관리자";
+        }
     }
 
     @Builder
-    public Member(String email, String password, String name, String nickName, Role role) {
+    public Member(String email, String password, String name, String nickName, UserRole role) {
 
         this.userToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_MEMBER);
         this.email = email;

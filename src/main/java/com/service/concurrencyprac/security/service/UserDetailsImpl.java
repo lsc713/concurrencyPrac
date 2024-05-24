@@ -1,11 +1,10 @@
 package com.service.concurrencyprac.security.service;
 
 import com.service.concurrencyprac.api.domain.member.Member;
-import com.service.concurrencyprac.api.domain.member.Member.Role;
+import com.service.concurrencyprac.api.domain.member.Member.UserRole;
 import com.service.concurrencyprac.api.domain.member.Member.Status;
 import java.util.ArrayList;
 import java.util.Collection;
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +19,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Role role = member.getRole();
+        UserRole role = member.getRole();
         String roleDescription = role.getDescription();
 
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(roleDescription);

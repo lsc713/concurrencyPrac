@@ -1,6 +1,6 @@
 package com.service.concurrencyprac.api.dto;
 
-import com.service.concurrencyprac.api.domain.member.Member.Role;
+import com.service.concurrencyprac.api.domain.member.Member;
 import com.service.concurrencyprac.api.domain.member.MemberCommand;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -22,7 +22,7 @@ public class MemberDTO {
         @NotBlank(message = "닉네임은 필수값입니다.")
         private String nickName;
         @NotBlank(message = "권한을 설정해주세요")
-        private Role role;
+        private Member.UserRole role;
 
         public MemberCommand.SignupMemberRequest toCommand() {
             return MemberCommand.SignupMemberRequest.builder()

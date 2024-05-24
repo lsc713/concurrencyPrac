@@ -1,5 +1,6 @@
 package com.service.concurrencyprac.api.domain.member;
 
+import com.service.concurrencyprac.api.domain.member.Member.UserRole;
 import lombok.Getter;
 
 @Getter
@@ -10,7 +11,7 @@ public class MemberInfo {
     private final String memberName;
     private final String email;
     private final Member.Status status;
-    private final Member.Role role;
+    private final UserRole role;
 
     public MemberInfo(Member member) {
         this.id = member.getId();
