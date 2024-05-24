@@ -1,11 +1,10 @@
 package com.service.concurrencyprac.payment.facade.impl;
 
-import com.service.concurrencyprac.api.domain.member.Member;
+import com.service.concurrencyprac.auth.domain.member.Member;
 import com.service.concurrencyprac.common.exception.InvalidParamException;
 import com.service.concurrencyprac.common.response.ErrorCode;
 import com.service.concurrencyprac.payment.dto.CreateOrderDto;
 import com.service.concurrencyprac.payment.dto.OrderInfoDto;
-import com.service.concurrencyprac.payment.entity.IssuedCoupon;
 import com.service.concurrencyprac.payment.entity.Order;
 import com.service.concurrencyprac.payment.entity.Order.Status;
 import com.service.concurrencyprac.payment.entity.Product;

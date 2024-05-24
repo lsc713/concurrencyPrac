@@ -1,8 +1,8 @@
 package com.service.concurrencyprac.payment.entity;
 
-import static com.service.concurrencyprac.common.response.ErrorCode.*;
+import static com.service.concurrencyprac.common.response.ErrorCode.OUT_OF_STOCK;
 
-import com.service.concurrencyprac.api.domain.BaseEntity;
+import com.service.concurrencyprac.auth.domain.BaseEntity;
 import com.service.concurrencyprac.common.exception.InvalidParamException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

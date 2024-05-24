@@ -1,6 +1,5 @@
 package com.service.concurrencyprac.payment.service.impl;
 
-import com.service.concurrencyprac.api.domain.member.Member;
 import com.service.concurrencyprac.payment.entity.Point;
 import com.service.concurrencyprac.payment.entity.PointLog;
 import com.service.concurrencyprac.payment.entity.PointLog.Type;
@@ -8,7 +7,6 @@ import com.service.concurrencyprac.payment.repository.coupon.PointLogRepository;
 import com.service.concurrencyprac.payment.repository.coupon.PointRepository;
 import com.service.concurrencyprac.payment.service.point.PointService;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,7 +1,7 @@
 package com.service.concurrencyprac.payment.entity;
 
-import com.service.concurrencyprac.api.domain.BaseEntity;
-import com.service.concurrencyprac.api.domain.member.Member;
+import com.service.concurrencyprac.auth.domain.BaseEntity;
+import com.service.concurrencyprac.auth.domain.member.Member;
 import com.service.concurrencyprac.common.exception.InvalidParamException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,6 +1,6 @@
 package com.service.concurrencyprac.payment.service.order;
 
-import com.service.concurrencyprac.api.domain.member.Member;
+import com.service.concurrencyprac.auth.domain.member.Member;
 import com.service.concurrencyprac.payment.entity.IssuedCoupon;
 import com.service.concurrencyprac.payment.entity.Order;
 import com.service.concurrencyprac.payment.entity.OrderItem;
@@ -29,9 +29,10 @@ public interface OrderService {
     void cancelOrder(Long orderId);
 
     void standByOrder(Long orderId);
+
     /*
-    * Order 완료에 대한 상태 저장
-    * */
+     * Order 완료에 대한 상태 저장
+     * */
     void completeOrder(Long orderId);
 
 }

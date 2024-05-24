@@ -1,8 +1,8 @@
 package com.service.concurrencyprac.payment.controller;
 
-import com.service.concurrencyprac.payment.service.impl.ApplyService;
-import com.service.concurrencyprac.payment.dto.CouponDTO;
 import com.service.concurrencyprac.common.response.CommonResponse;
+import com.service.concurrencyprac.payment.dto.CouponDTO;
+import com.service.concurrencyprac.payment.service.impl.ApplyService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

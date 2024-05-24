@@ -10,6 +10,7 @@ public class PostCommand {
     @Builder
     @ToString
     public static class PostingCommand {
+
         private final String title;
         private final String contents;
         private final String nickName;

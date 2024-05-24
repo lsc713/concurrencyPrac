@@ -1,6 +1,6 @@
 package com.service.concurrencyprac.payment.service.impl;
 
-import com.service.concurrencyprac.api.domain.member.Member;
+import com.service.concurrencyprac.auth.domain.member.Member;
 import com.service.concurrencyprac.common.exception.InvalidParamException;
 import com.service.concurrencyprac.payment.entity.IssuedCoupon;
 import com.service.concurrencyprac.payment.entity.Order;
@@ -24,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderItemRepository orderItemRepository;
 
     @Override
-    public Order createOrder(Member member, List<OrderItem> orderItems,ShippingInfo shippingInfo) {
+    public Order createOrder(Member member, List<OrderItem> orderItems, ShippingInfo shippingInfo) {
         Order order = Order.builder()
             .member(member)
             .orderItems(orderItems)

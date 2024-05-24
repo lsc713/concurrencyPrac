@@ -1,6 +1,6 @@
 package com.service.concurrencyprac.payment.entity;
 
-import com.service.concurrencyprac.api.domain.BaseEntity;
+import com.service.concurrencyprac.auth.domain.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

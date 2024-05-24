@@ -1,6 +1,6 @@
 package com.service.concurrencyprac.payment.entity;
 
-import com.service.concurrencyprac.api.domain.BaseEntity;
+import com.service.concurrencyprac.auth.domain.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,10 +40,9 @@ public class PointLog extends BaseEntity {
 
     @Getter
     @RequiredArgsConstructor
-    public enum Type{
+    public enum Type {
         SPEND("사용"),
-        EARN("적립")
-        ;
+        EARN("적립");
         private final String description;
     }
 

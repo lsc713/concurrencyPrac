@@ -1,6 +1,6 @@
 package com.service.concurrencyprac.payment.entity;
 
-import com.service.concurrencyprac.api.domain.BaseEntity;
+import com.service.concurrencyprac.auth.domain.BaseEntity;
 import com.service.concurrencyprac.common.exception.InvalidParamException;
 import com.service.concurrencyprac.common.util.TokenGenerator;
 import jakarta.persistence.Column;
@@ -9,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import java.math.BigDecimal;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;

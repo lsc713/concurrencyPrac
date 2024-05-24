@@ -1,6 +1,5 @@
 package com.service.concurrencyprac.payment.service.point;
 
-import com.service.concurrencyprac.api.domain.member.Member;
 import com.service.concurrencyprac.payment.entity.Point;
 import com.service.concurrencyprac.payment.entity.PointLog.Type;
 

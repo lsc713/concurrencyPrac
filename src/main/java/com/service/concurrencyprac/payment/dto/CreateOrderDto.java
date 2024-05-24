@@ -1,6 +1,6 @@
 package com.service.concurrencyprac.payment.dto;
 
-import com.service.concurrencyprac.api.domain.member.Member;
+import com.service.concurrencyprac.auth.domain.member.Member;
 import com.service.concurrencyprac.payment.entity.IssuedCoupon;
 import com.service.concurrencyprac.payment.entity.OrderItem;
 import com.service.concurrencyprac.payment.entity.ShippingInfo;

@@ -1,10 +1,10 @@
 package com.service.concurrencyprac.payment.repository.post;
 
-import static com.service.concurrencyprac.api.domain.post.QPost.post;
+import static com.service.concurrencyprac.auth.domain.post.QPost.post;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.service.concurrencyprac.payment.entity.post.Post;
 import com.service.concurrencyprac.config.QuerydslConfig;
+import com.service.concurrencyprac.payment.entity.post.Post;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

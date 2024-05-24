@@ -1,8 +1,8 @@
 package com.service.concurrencyprac.security.service;
 
-import com.service.concurrencyprac.api.domain.member.Member;
-import com.service.concurrencyprac.api.domain.member.Member.UserRole;
-import com.service.concurrencyprac.api.domain.member.Member.Status;
+import com.service.concurrencyprac.auth.domain.member.Member;
+import com.service.concurrencyprac.auth.domain.member.Member.Status;
+import com.service.concurrencyprac.auth.domain.member.Member.UserRole;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;

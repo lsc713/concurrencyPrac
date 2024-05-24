@@ -1,6 +1,5 @@
 package com.service.concurrencyprac.payment.service.impl;
 
-import com.service.concurrencyprac.common.exception.InvalidParamException;
 import com.service.concurrencyprac.payment.entity.IssuedCoupon;
 import com.service.concurrencyprac.payment.repository.coupon.IssuedCouponRepository;
 import com.service.concurrencyprac.payment.service.coupon.IssuedCouponService;

@@ -1,7 +1,7 @@
 package com.service.concurrencyprac.security.service;
 
-import com.service.concurrencyprac.api.domain.member.Member;
-import com.service.concurrencyprac.api.repository.member.MemberRepository;
+import com.service.concurrencyprac.auth.domain.member.Member;
+import com.service.concurrencyprac.auth.repository.member.MemberRepository;
 import com.service.concurrencyprac.common.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

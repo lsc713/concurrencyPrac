@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .requestMatchers("/actuator/health").permitAll()
                 .requestMatchers("/manager").hasAnyRole("MANAGER")
                 .requestMatchers("/admin").hasAnyRole("ADMIN")
-                .requestMatchers("/my/**").hasAnyRole("ADMIN","MANAGER","USER")
+                .requestMatchers("/my/**").hasAnyRole("ADMIN", "MANAGER", "USER")
                 .anyRequest().authenticated());
         return http.build();
     }

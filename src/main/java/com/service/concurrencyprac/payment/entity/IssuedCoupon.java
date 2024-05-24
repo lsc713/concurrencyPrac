@@ -1,7 +1,7 @@
 package com.service.concurrencyprac.payment.entity;
 
-import com.service.concurrencyprac.api.domain.BaseEntity;
-import com.service.concurrencyprac.api.domain.member.Member;
+import com.service.concurrencyprac.auth.domain.BaseEntity;
+import com.service.concurrencyprac.auth.domain.member.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -55,8 +55,8 @@ public class IssuedCoupon extends BaseEntity {
     private Date validUntil;
 
     public void use() {
-        this.isUsed=true;
-        this.isValid=false;
-        this.usedAt=new Date();
+        this.isUsed = true;
+        this.isValid = false;
+        this.usedAt = new Date();
     }
 }
