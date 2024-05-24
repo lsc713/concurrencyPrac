@@ -1,6 +1,7 @@
 package com.service.concurrencyprac.payment.repository.post;
 
-import static com.service.concurrencyprac.auth.domain.post.QPost.post;
+
+import static com.service.concurrencyprac.payment.entity.post.QPost.post;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.service.concurrencyprac.config.QuerydslConfig;
