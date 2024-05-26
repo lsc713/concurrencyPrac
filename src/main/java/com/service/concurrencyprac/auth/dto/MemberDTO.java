@@ -1,6 +1,7 @@
 package com.service.concurrencyprac.auth.dto;
 
 import com.service.concurrencyprac.auth.domain.member.Member;
+import com.service.concurrencyprac.auth.domain.member.Member.UserRole;
 import com.service.concurrencyprac.auth.domain.member.MemberCommand;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -30,7 +31,7 @@ public class MemberDTO {
                 .password(password)
                 .memberName(memberName)
                 .nickName(nickName)
-                .role(role)
+                .role(UserRole.USER)
                 .build();
         }
     }
