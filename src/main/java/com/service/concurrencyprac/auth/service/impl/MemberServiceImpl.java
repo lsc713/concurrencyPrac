@@ -4,6 +4,7 @@ import com.service.concurrencyprac.auth.domain.member.Member;
 import com.service.concurrencyprac.auth.domain.member.MemberCommand.SignupMemberRequest;
 import com.service.concurrencyprac.auth.domain.member.MemberInfo;
 import com.service.concurrencyprac.auth.domain.member.MemberStore;
+import com.service.concurrencyprac.auth.repository.member.MemberReader;
 import com.service.concurrencyprac.auth.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,10 +14,11 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class UserServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService {
 
     private final BCryptPasswordEncoder passwordEncoder;
     private final MemberStore memberStore;
+    private final MemberReader memberReader;
 
     @Override
     public MemberInfo signup(SignupMemberRequest command) {
