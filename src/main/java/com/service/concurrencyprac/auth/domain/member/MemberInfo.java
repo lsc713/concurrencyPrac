@@ -15,7 +15,7 @@ public class MemberInfo {
 
     public MemberInfo(Member member) {
         this.id = member.getId();
-        this.memberToken = member.getUserToken();
+        this.memberToken = member.getMemberToken();
         this.memberName = member.getName();
         this.email = member.getEmail();
         this.status = member.getStatus();

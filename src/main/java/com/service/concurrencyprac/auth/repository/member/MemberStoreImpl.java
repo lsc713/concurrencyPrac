@@ -18,7 +18,7 @@ public class MemberStoreImpl implements MemberStore {
 
     @Override
     public Member store(Member signupMember) {
-        if (StringUtils.isEmpty(signupMember.getUserToken())) throw new InvalidParamException("signupMember.getPartnerToken()");
+        if (StringUtils.isEmpty(signupMember.getMemberToken())) throw new InvalidParamException("signupMember.getPartnerToken()");
         if (StringUtils.isEmpty(signupMember.getEmail())) throw new InvalidParamException("signupMember.getPartnerToken()");
         if (StringUtils.isEmpty(signupMember.getName())) throw new InvalidParamException("signupMember.getPartnerToken()");
         if (StringUtils.isEmpty(signupMember.getNickName())) throw new InvalidParamException("signupMember.getPartnerToken()");

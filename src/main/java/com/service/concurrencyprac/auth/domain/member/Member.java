@@ -32,7 +32,7 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userToken;
+    private String memberToken;
     @Column
     private String email;
     @Column
@@ -82,8 +82,7 @@ public class Member {
 
     @Builder
     public Member(String email, String password, String name, String nickName, UserRole role) {
-
-        this.userToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_MEMBER);
+        this.memberToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_MEMBER);
         this.email = email;
         this.password = password;
         this.name = name;
