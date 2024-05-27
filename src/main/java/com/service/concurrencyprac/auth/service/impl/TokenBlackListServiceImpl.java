@@ -7,6 +7,7 @@ import com.service.concurrencyprac.auth.repository.token.TokenBlackListRepositor
 import com.service.concurrencyprac.auth.service.token.TokenBlackListService;
 import io.jsonwebtoken.Claims;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,8 @@ public class TokenBlackListServiceImpl implements
 
     @Override
     public void removeExpiredTokens() {
-        tokenBlackListRepository.deleteAllByExpiredTokens(new Date());
+        List<TokenBlackList> expiredList =
+            tokenBlackListRepository.findAllByExpiresAtLessThan(new Date());
+        tokenBlackListRepository.deleteAllInBatch(expiredList);
     }
 }
