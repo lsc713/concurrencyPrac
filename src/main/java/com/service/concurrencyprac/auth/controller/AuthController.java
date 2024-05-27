@@ -47,6 +47,14 @@ public class AuthController {
         );
     }
 
+    @Operation(summary = "Token Refresh")
+    @PostMapping("/refresh")
+    public CommonResponse refresh(HttpServletRequest request) {
+        String accessToken = authService.refreshAccessToken(
+            jwtProvider.getJwtFromHeader(request, TokenType.REFRESH));
+        return CommonResponse.success(accessToken);
+    }
+
     @GetMapping("/admin")
     public String adminPage() {
         return null;
