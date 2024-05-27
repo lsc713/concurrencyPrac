@@ -38,7 +38,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)
+        throws Exception {
         return configuration.getAuthenticationManager();
     }
 
@@ -54,6 +55,7 @@ public class SecurityConfig {
     public JwtAuthorizationFilter jwtAuthorizationFilter() {
         return new JwtAuthorizationFilter(jwtProvider, userDetailsService);
     }
+
     @Bean
     public RoleHierarchy roleHierarchy() {
 
@@ -72,7 +74,6 @@ public class SecurityConfig {
         security.headers(
             headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
-
         security
             .authorizeRequests((auth) -> auth
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
@@ -82,7 +83,6 @@ public class SecurityConfig {
                 .requestMatchers("/admin").hasAnyRole("ADMIN")
                 .requestMatchers("/my/**").hasAnyRole("ADMIN", "MANAGER", "USER")
                 .anyRequest().authenticated());
-
 
         security
             .sessionManagement(

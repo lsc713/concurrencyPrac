@@ -41,13 +41,14 @@ public class PaymentController {
     }
 
     /*토스의 결제 - 인증 + 승인
-    * 1.인증:결제 해당 고객이며 지불능력이 있는가
-    * 2.승인: 결제처리 승인절차
-    * 토스는 클라이언트에서 우리서버를 다시 호출하도록 구현되어있음.
-    * 하기의 경우 승인처리컨트롤러의 예시.
-    * @param 요청처리데이터에 대해 결제처리 결과 응답데이터*/
+     * 1.인증:결제 해당 고객이며 지불능력이 있는가
+     * 2.승인: 결제처리 승인절차
+     * 토스는 클라이언트에서 우리서버를 다시 호출하도록 구현되어있음.
+     * 하기의 경우 승인처리컨트롤러의 예시.
+     * @param 요청처리데이터에 대해 결제처리 결과 응답데이터*/
     @RequestMapping(value = "/confirm")
-    public CommonResponse<PaymentResultDto> confirmPayment(@RequestBody String jsonBody, @AuthenticationPrincipal
+    public CommonResponse<PaymentResultDto> confirmPayment(@RequestBody String jsonBody,
+        @AuthenticationPrincipal
         Member member) throws Exception {
 
         PaymentResultDto result = new PaymentResultDto();
@@ -62,7 +63,8 @@ public class PaymentController {
             amount = (String) requestData.get("amount");
         } catch (ParseException e) {
             throw new RuntimeException(e);
-        };
+        }
+        ;
 
         //요청정보 조작방지를 위해 확인.
         OrderInfoDto orderInfo = paymentFacade.getOrderInfo(Long.parseLong(orderId));

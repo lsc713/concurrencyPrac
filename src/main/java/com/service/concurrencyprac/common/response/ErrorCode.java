@@ -10,8 +10,7 @@ public enum ErrorCode {
     COMMON_ENTITY_NOT_FOUND("존재하지 않는 엔티티입니다."),
     OUT_OF_STOCK("재고가 부족합니다"),
     ILLEGAL_STATUS_FOR_PAYMENT("결제할 수 없는 상태입니다."),
-    NOT_EXIST_TOKEN("존재하지않는 토큰입니다")
-    ;
+    NOT_EXIST_TOKEN("존재하지않는 토큰입니다");
 
     private final String errorMessage;
 

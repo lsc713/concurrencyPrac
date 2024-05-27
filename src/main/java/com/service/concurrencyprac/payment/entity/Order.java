@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Table(name = "ORDER_ENTRY")
 public class Order {
-    private static final String DOUBLE_DEFINITION = "double default 0";
+
     private static final String DATE_FORMAT = "yyyyMMddHHmmss";
     private static final String REGEX_ORDER = "[^a-zA-Z0-9]";
     private static final String COUPON_TYPE_PERCENT = "PERCENT-OFF";
@@ -56,9 +56,8 @@ public class Order {
 
     @Getter
     @RequiredArgsConstructor
-    public enum Status{
-        READY("준비됨"), COMPLETE("주문완료됨"), CANCEL("주문취소")
-        ;
+    public enum Status {
+        READY("준비됨"), COMPLETE("주문완료됨"), CANCEL("주문취소");
         private final String description;
     }
 
@@ -66,7 +65,7 @@ public class Order {
     @Column
     private List<OrderItem> orderItems;
 
-    @Column(columnDefinition = DOUBLE_DEFINITION)
+    @Column
     private Double pointAmountUsed;
 
     @OneToOne(mappedBy = "usedOrder")
@@ -106,7 +105,7 @@ public class Order {
         String dateFormat = LocalDateTime
             .now()
             .format(DateTimeFormatter
-            .ofPattern(DATE_FORMAT));
+                .ofPattern(DATE_FORMAT));
 
         StringBuilder randomString = generateRandomString(ORDER_STRING_LENGTH);
 

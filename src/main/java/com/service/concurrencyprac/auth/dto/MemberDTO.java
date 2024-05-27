@@ -13,6 +13,7 @@ public class MemberDTO {
     @Getter
     @ToString
     public static class SignupRequest {
+
         @Email(message = "email형식을 지켜주세요")
         @NotBlank(message = "email은 필수값입니다.")
         private String email;

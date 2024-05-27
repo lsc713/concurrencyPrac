@@ -68,11 +68,10 @@ public class Member {
     @Getter
     @RequiredArgsConstructor
     public enum UserRole {
-        ADMIN(Description.ADMIN),MANAGER(Description.MANAGER), USER(Description.USER)
-        ;
+        ADMIN(Description.ADMIN), MANAGER(Description.MANAGER), USER(Description.USER);
         private final String description;
 
-        public static class Description{
+        public static class Description {
 
             public static final String USER = "일반유저";
             public static final String MANAGER = "중간관리자";

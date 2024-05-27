@@ -7,6 +7,7 @@ Content-Type: application/json
   "password": "test1234",
   "phone": "010-1234-5678"
 }
+
 ###
 
 POST {{host}}/auth/login

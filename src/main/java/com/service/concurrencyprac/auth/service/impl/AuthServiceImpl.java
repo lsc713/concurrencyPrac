@@ -4,7 +4,6 @@ import com.service.concurrencyprac.auth.domain.member.Member;
 import com.service.concurrencyprac.auth.domain.token.TokenBlackList.TokenType;
 import com.service.concurrencyprac.auth.jwt.JwtProvider;
 import com.service.concurrencyprac.auth.repository.member.MemberReader;
-import com.service.concurrencyprac.auth.repository.member.MemberRepository;
 import com.service.concurrencyprac.auth.service.token.AuthService;
 import com.service.concurrencyprac.common.exception.InvalidParamException;
 import com.service.concurrencyprac.common.response.ErrorCode;
@@ -27,6 +26,7 @@ public class AuthServiceImpl implements AuthService {
         Claims info = jwtProvider.getUserInfoFromToken(refreshToken);
 
         Member member = memberReader.getMember(info.getId());
-        return jwtProvider.createToken(jwtProvider.createTokenPayload(member.getEmail(), TokenType.ACCESS));
+        return jwtProvider.createToken(
+            jwtProvider.createTokenPayload(member.getEmail(), TokenType.ACCESS));
     }
 }

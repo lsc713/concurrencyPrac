@@ -18,13 +18,24 @@ public class MemberStoreImpl implements MemberStore {
 
     @Override
     public Member store(Member signupMember) {
-        if (StringUtils.isEmpty(signupMember.getMemberToken())) throw new InvalidParamException("signupMember.getPartnerToken()");
-        if (StringUtils.isEmpty(signupMember.getEmail())) throw new InvalidParamException("signupMember.getPartnerToken()");
-        if (StringUtils.isEmpty(signupMember.getName())) throw new InvalidParamException("signupMember.getPartnerToken()");
-        if (StringUtils.isEmpty(signupMember.getNickName())) throw new InvalidParamException("signupMember.getPartnerToken()");
-        if (signupMember.getStatus() == null) throw new InvalidParamException("signupMember.getStatus()");
+        if (StringUtils.isEmpty(signupMember.getMemberToken())) {
+            throw new InvalidParamException("signupMember.getPartnerToken()");
+        }
+        if (StringUtils.isEmpty(signupMember.getEmail())) {
+            throw new InvalidParamException("signupMember.getPartnerToken()");
+        }
+        if (StringUtils.isEmpty(signupMember.getName())) {
+            throw new InvalidParamException("signupMember.getPartnerToken()");
+        }
+        if (StringUtils.isEmpty(signupMember.getNickName())) {
+            throw new InvalidParamException("signupMember.getPartnerToken()");
+        }
+        if (signupMember.getStatus() == null) {
+            throw new InvalidParamException("signupMember.getStatus()");
+        }
 
-        memberRepository.findByEmail(signupMember.getEmail()).orElseThrow(()-> new EntityNotFoundException("signupMember.getEmail()"));
+        memberRepository.findByEmail(signupMember.getEmail())
+            .orElseThrow(() -> new EntityNotFoundException("signupMember.getEmail()"));
 
         return memberRepository.save(signupMember);
     }

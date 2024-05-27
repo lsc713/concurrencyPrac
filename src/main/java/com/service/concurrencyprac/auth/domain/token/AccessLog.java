@@ -33,7 +33,8 @@ public class AccessLog extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private Member member;
 
-    public AccessLog(){}
+    public AccessLog() {
+    }
 
     public AccessLog(String ua, String endpoint, String ip, Member member) {
         this.ua = ua;

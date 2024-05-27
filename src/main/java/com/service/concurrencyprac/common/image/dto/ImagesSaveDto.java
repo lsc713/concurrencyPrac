@@ -14,10 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @Setter
 public class ImagesSaveDto {
+
     private List<MultipartFile> images = new ArrayList<>();
 
     @Getter
-    public static class ItemImageResponseDto{
+    public static class ItemImageResponseDto {
+
         private String originalName;
         private String savedImage;
         private String accessUrl;
@@ -30,10 +32,10 @@ public class ImagesSaveDto {
 
         public Image toEntity() {
             return Image.builder()
-                    .originName(this.originalName)
-                    .savedImage(this.savedImage)
-                    .accessUrl(this.accessUrl)
-                    .build();
+                .originName(this.originalName)
+                .savedImage(this.savedImage)
+                .accessUrl(this.accessUrl)
+                .build();
         }
     }
 

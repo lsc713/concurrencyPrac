@@ -40,7 +40,8 @@ public class JwtProvider {
 
     public TokenPayload createTokenPayload(String email, TokenType tokenType) {
         Date date = new Date();
-        long tokenTime = TokenType.ACCESS.equals(tokenType) ? ACCESS_TOKEN_TIME : REFRESH_TOKEN_TIME;
+        long tokenTime =
+            TokenType.ACCESS.equals(tokenType) ? ACCESS_TOKEN_TIME : REFRESH_TOKEN_TIME;
         return new TokenPayload(
             email,
             UUID.randomUUID().toString(),
@@ -55,12 +56,13 @@ public class JwtProvider {
             .expiration(payload.getExpiredAt())
             .issuedAt(payload.getIat())
             .id(payload.getJti())
-            .signWith(key,algorithm)
+            .signWith(key, algorithm)
             .compact();
     }
 
     public String getJwtFromHeader(HttpServletRequest request, TokenType tokenType) {
-        String bearerToken = request.getHeader(TokenType.ACCESS.equals(tokenType) ? ACCESS_TOKEN_HEADER : REFRESH_TOKEN_HEADER);
+        String bearerToken = request.getHeader(
+            TokenType.ACCESS.equals(tokenType) ? ACCESS_TOKEN_HEADER : REFRESH_TOKEN_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
             return bearerToken.substring(7);
         }

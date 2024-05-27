@@ -17,7 +17,7 @@ configurations {
     }
 }
 
-jar{
+jar {
     enabled = false
 }
 

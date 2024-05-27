@@ -7,7 +7,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -32,8 +31,8 @@ public class TokenBlackList {
     @Enumerated(EnumType.STRING)
     private TokenType tokenType;
 
-    public enum TokenType{
-        ACCESS,REFRESH;
+    public enum TokenType {
+        ACCESS, REFRESH;
     }
 
     @Column
