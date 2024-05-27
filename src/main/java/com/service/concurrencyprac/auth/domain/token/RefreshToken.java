@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
+import java.util.Date;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class RefreshToken extends BaseEntity {
     private String token;
 
     @Column
-    private LocalDateTime expiredAt;
+    private Date expiredAt;
 
     @Column(columnDefinition = "boolean default false")
     private boolean isRevoke;

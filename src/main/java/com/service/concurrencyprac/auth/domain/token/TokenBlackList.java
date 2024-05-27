@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.Date;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,9 @@ public class TokenBlackList {
     private Long id;
 
     @Column
+    private String token;
+
+    @Column
     private String jti;
 
     @Column
@@ -33,5 +37,12 @@ public class TokenBlackList {
     }
 
     @Column
-    private LocalDateTime localDateTime;
+    private Date expiresAt;
+
+    public TokenBlackList(String token, String jti, TokenType tokenType, Date expiresAt) {
+        this.token = token;
+        this.jti = jti;
+        this.tokenType = tokenType;
+        this.expiresAt = expiresAt;
+    }
 }
