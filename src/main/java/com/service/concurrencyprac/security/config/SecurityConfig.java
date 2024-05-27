@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -68,19 +69,24 @@ public class SecurityConfig {
             .formLogin((auth) -> auth.disable())
             .httpBasic(AbstractHttpConfigurer::disable);
 
-        security
-            .sessionManagement(
-                (auth) -> auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        security.headers(
+            headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+
 
         security
             .authorizeRequests((auth) -> auth
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/actuator/health").permitAll()
-                .requestMatchers("/manager").hasAnyRole("MANAGER")
                 .requestMatchers("/admin").hasAnyRole("ADMIN")
                 .requestMatchers("/my/**").hasAnyRole("ADMIN", "MANAGER", "USER")
                 .anyRequest().authenticated());
+
+
+        security
+            .sessionManagement(
+                (auth) -> auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         security.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
         security.addFilterBefore(jwtAuthenticationFilter(),
