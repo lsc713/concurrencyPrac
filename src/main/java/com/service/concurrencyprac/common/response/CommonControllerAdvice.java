@@ -2,7 +2,7 @@ package com.service.concurrencyprac.common.response;
 
 import com.google.common.collect.Lists;
 import com.service.concurrencyprac.common.exception.BaseException;
-import com.service.concurrencyprac.common.interceptor.CommonHttpRequestInterceptor;
+import com.service.concurrencyprac.common.logging.CommonHttpRequestInterceptor;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;

@@ -1,4 +1,4 @@
-package com.service.concurrencyprac.common.interceptor;
+package com.service.concurrencyprac.common.logging;
 
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,5 +25,10 @@ public class CommonHttpRequestInterceptor implements HandlerInterceptor {
 
         MDC.put(HEADER_REQUEST_UUID_KEY, requestEventId);
         return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request,HttpServletResponse response,Object handler, Exception ex) throws Exception {
+        MDC.remove(HEADER_REQUEST_UUID_KEY);
     }
 }

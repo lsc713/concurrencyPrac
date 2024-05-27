@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private JwtProvider jwtProvider;
-    private MemberReader memberReader;
+    private final JwtProvider jwtProvider;
+    private final MemberReader memberReader;
 
     @Override
     public String refreshAccessToken(String refreshToken) {

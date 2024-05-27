@@ -1,0 +1,28 @@
+version: "3"
+services:
+  server:
+    container_name: concurrency-example-backend-server-dev
+    image: concurrency-example-backend-server-dev:latest
+    build:
+      context: ../../
+      dockerfile: docker/Dockerfile
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      - PROFILE=dev
+      - PORT=8080
+      - TZ=Asia/Seoul
+  postgres:
+    image: postgres:latest
+    environment:
+      TZ: Asia/Seoul
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: concurrency
+    ports:
+      - '5432:5432'
+    volumes:
+      - $PWD/volumes/postgres_data:/var/lib/postgresql/data
