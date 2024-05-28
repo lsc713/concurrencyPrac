@@ -14,4 +14,6 @@ public interface PostService {
     List<PostInfo> fetchAllPosts();
 
     PostInfo updatePost(String postToken, PostUpdateDto requestDto);
+
+    void deletePost(String postToken, String username);
 }

@@ -52,4 +52,10 @@ public class PostServiceImpl implements PostService {
         post.update(requestDto);
         return new PostInfo(post);
     }
+
+    @Override
+    public void deletePost(String postToken, String username) {
+        Post post = postReader.getPost(postToken);
+        postStore.delete(post);
+    }
 }

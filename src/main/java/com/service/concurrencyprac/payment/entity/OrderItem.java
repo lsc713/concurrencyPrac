@@ -25,9 +25,6 @@ public class OrderItem {
     private Order order;
 
     @Column
-    private String productId;
-
-    @Column
     private int quantity;
 
     @ManyToOne

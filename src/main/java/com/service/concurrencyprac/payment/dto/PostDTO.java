@@ -52,6 +52,7 @@ public class PostDTO {
 
     @Getter
     public static class PostUpdateDto {
+
         @NotBlank(message = "제목은 필수값입니다.")
         private String title;
         @NotBlank(message = "내용은 필수값입니다.")

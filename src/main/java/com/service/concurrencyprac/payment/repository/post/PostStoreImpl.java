@@ -29,4 +29,9 @@ public class PostStoreImpl implements PostStore {
 
         return postRepository.save(post);
     }
+
+    @Override
+    public void delete(Post post) {
+        postRepository.delete(post);
+    }
 }

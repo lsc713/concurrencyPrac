@@ -28,6 +28,7 @@ public class PostCommand {
     @Builder
     @ToString
     public static class UpdateCommand {
+
         private final String title;
         private final String contents;
 

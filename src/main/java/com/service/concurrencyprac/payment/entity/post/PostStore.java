@@ -4,4 +4,6 @@ public interface PostStore {
 
     Post store(Post post);
 
+    void delete(Post post);
+
 }
