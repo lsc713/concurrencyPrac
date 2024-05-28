@@ -2,6 +2,7 @@ package com.service.concurrencyprac.payment.dto;
 
 import com.service.concurrencyprac.payment.entity.post.Post;
 import com.service.concurrencyprac.payment.entity.post.PostCommand;
+import com.service.concurrencyprac.payment.entity.post.PostCommand.UpdateCommand;
 import com.service.concurrencyprac.payment.entity.post.PostInfo;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -45,6 +46,21 @@ public class PostDTO {
                 .title(title)
                 .contents(contents)
                 .nickName(nickName)
+                .build();
+        }
+    }
+
+    @Getter
+    public static class PostUpdateDto {
+        @NotBlank(message = "제목은 필수값입니다.")
+        private String title;
+        @NotBlank(message = "내용은 필수값입니다.")
+        private String contents;
+
+        public PostCommand.UpdateCommand toCommand() {
+            return UpdateCommand.builder()
+                .title(title)
+                .contents(contents)
                 .build();
         }
     }

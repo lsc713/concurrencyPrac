@@ -14,7 +14,7 @@ public class PostInfo {
 
     public PostInfo(Post post) {
         this.id = post.getId();
-        this.nickName = post.getNickName();
+        this.nickName = post.getAuthor();
         this.title = post.getTitle();
         this.contents = post.getContents();
         this.postToken = post.getPostToken();

@@ -24,4 +24,19 @@ public class PostCommand {
         }
     }
 
+    @Getter
+    @Builder
+    @ToString
+    public static class UpdateCommand {
+        private final String title;
+        private final String contents;
+
+        public Post toEntity() {
+            return Post.builder()
+                .title(title)
+                .contents(contents)
+                .build();
+        }
+
+    }
 }
