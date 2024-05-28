@@ -4,6 +4,7 @@ import static com.service.concurrencyprac.payment.dto.PostDTO.PostRequest;
 import static com.service.concurrencyprac.payment.entity.post.PostCommand.PostingCommand;
 
 import com.service.concurrencyprac.common.response.CommonResponse;
+import com.service.concurrencyprac.payment.dto.PostDTO.PostUpdateDto;
 import com.service.concurrencyprac.payment.entity.post.PostInfo;
 import com.service.concurrencyprac.payment.repository.post.PostService;
 import com.service.concurrencyprac.security.service.UserDetailsImpl;
@@ -14,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +28,7 @@ public class PostController {
     private final PostService postservice;
 
     @PostMapping
-    public CommonResponse registerPost(
+    public CommonResponse<PostInfo> registerPost(
         @RequestBody @Valid PostRequest request,
         @AuthenticationPrincipal UserDetailsImpl userDetails) {
         PostingCommand postCommand = request.toCommand();
@@ -35,7 +37,7 @@ public class PostController {
     }
 
     @GetMapping("/{postToken}")
-    public CommonResponse fetchPostOne(@PathVariable String postToken) {
+    public CommonResponse<PostInfo> fetchPostOne(@PathVariable String postToken) {
         PostInfo response = postservice.getPostInfo(postToken);
         return CommonResponse.success(response);
     }
@@ -44,6 +46,13 @@ public class PostController {
     public CommonResponse<List<PostInfo>> fetchPosts() {
         List<PostInfo> response = postservice.fetchAllPosts();
         return CommonResponse.success(response);
+    }
+
+    @PutMapping("/{postToken}")
+    public CommonResponse<PostInfo> updatePost(@PathVariable String postToken,
+        @RequestBody PostUpdateDto requestDto) {
+        PostInfo result = postservice.updatePost(postToken, requestDto);
+        return CommonResponse.success(result);
     }
 
 
