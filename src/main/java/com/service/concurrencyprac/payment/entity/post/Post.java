@@ -2,6 +2,7 @@ package com.service.concurrencyprac.payment.entity.post;
 
 import com.service.concurrencyprac.auth.domain.BaseEntity;
 import com.service.concurrencyprac.common.util.TokenGenerator;
+import com.service.concurrencyprac.payment.dto.PostDTO.PostUpdateDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class Post extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nickName;
+    private String author;
     private String title;
     private String contents;
     private String postToken;
@@ -35,11 +36,16 @@ public class Post extends BaseEntity {
     @Builder
     public Post(String nickName, String title, String contents) {
         this.postToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_POST);
-        this.nickName = nickName;
+        this.author = nickName;
         this.title = title;
         this.contents = contents;
         this.status = Status.ACTIVATE;
 
+    }
+
+    public void update(PostUpdateDto postDto) {
+        this.title = postDto.getTitle();
+        this.contents = postDto.getContents();
     }
 
     @Getter
