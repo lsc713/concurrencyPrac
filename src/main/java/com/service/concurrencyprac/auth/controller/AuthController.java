@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/signup")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -32,7 +32,7 @@ public class AuthController {
     private final TokenBlackListService tokenBlackListService;
 
     @Operation(summary = "회원가입")
-    @PostMapping
+    @PostMapping("/signup")
     public CommonResponse signUp(@RequestBody @Valid MemberDTO.SignupRequest request) {
         SignupMemberRequest command = request.toCommand();
         MemberInfo response = signupService.signup(command);

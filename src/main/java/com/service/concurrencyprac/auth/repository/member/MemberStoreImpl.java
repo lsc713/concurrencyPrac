@@ -2,8 +2,10 @@ package com.service.concurrencyprac.auth.repository.member;
 
 import com.service.concurrencyprac.auth.domain.member.Member;
 import com.service.concurrencyprac.auth.domain.member.MemberStore;
+import com.service.concurrencyprac.common.exception.EntityAlreadyExistException;
 import com.service.concurrencyprac.common.exception.EntityNotFoundException;
 import com.service.concurrencyprac.common.exception.InvalidParamException;
+import com.service.concurrencyprac.common.response.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -34,8 +36,11 @@ public class MemberStoreImpl implements MemberStore {
             throw new InvalidParamException("signupMember.getStatus()");
         }
 
-        memberRepository.findByEmail(signupMember.getEmail())
-            .orElseThrow(() -> new EntityNotFoundException("signupMember.getEmail()"));
+        if (memberRepository.findByEmail(signupMember.getEmail())
+            .isPresent()) {
+            throw new EntityAlreadyExistException(signupMember.getEmail())
+                ;
+        }
 
         return memberRepository.save(signupMember);
     }

@@ -1,11 +1,11 @@
-POST {{ host}} /auth/signup
+POST {{host}}/api/v1/auth/signup
 Content-Type: application/json
 
 {
-  "name": "Mao",
   "email": "Mao@Test.com",
+  "memberName": "Mao",
   "password": "test1234",
-  "phone": "010-1234-5678"
+  "nickName": "010-1234-5678"
 }
 
 ###

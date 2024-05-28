@@ -77,8 +77,8 @@ public class SecurityConfig {
         security
             .authorizeRequests((auth) -> auth
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers(PathRequest.toH2Console()).permitAll()
-                .requestMatchers("/auth/**").permitAll()
+//                .requestMatchers(PathRequest.toH2Console()).permitAll()
+                .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/actuator/health").permitAll()
                 .requestMatchers("/admin").hasAnyRole("ADMIN")
                 .requestMatchers("/my/**").hasAnyRole("ADMIN", "MANAGER", "USER")
