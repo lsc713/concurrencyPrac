@@ -1,6 +1,7 @@
 package com.service.concurrencyprac.auth.repository.member;
 
 import com.service.concurrencyprac.auth.domain.member.Member;
+import com.service.concurrencyprac.auth.domain.member.Member.Status;
 import com.service.concurrencyprac.auth.domain.member.MemberStore;
 import com.service.concurrencyprac.common.exception.EntityAlreadyExistException;
 import com.service.concurrencyprac.common.exception.EntityNotFoundException;
@@ -32,16 +33,13 @@ public class MemberStoreImpl implements MemberStore {
         if (StringUtils.isEmpty(signupMember.getNickName())) {
             throw new InvalidParamException("signupMember.getPartnerToken()");
         }
-        if (signupMember.getStatus() == null) {
+        if (signupMember.getStatus() == Status.DISABLED) {
             throw new InvalidParamException("signupMember.getStatus()");
         }
 
-        if (memberRepository.findByEmail(signupMember.getEmail())
-            .isPresent()) {
-            throw new EntityAlreadyExistException(signupMember.getEmail())
-                ;
+        if (memberRepository.findByEmail(signupMember.getEmail()).isPresent()) {
+            throw new EntityAlreadyExistException(signupMember.getEmail());
         }
-
         return memberRepository.save(signupMember);
     }
 }
