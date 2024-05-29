@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.service.concurrencyprac.auth.domain.member.Member;
 import com.service.concurrencyprac.common.exception.EntityAlreadyExistException;
 import com.service.concurrencyprac.common.exception.InvalidParamException;
+import java.lang.reflect.Field;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,18 @@ class MemberStoreImplTest {
         Member member = createMember();
         member.disable();
 
+        // 예외 검증
+        assertThrows(InvalidParamException.class, () -> {
+            memberStore.store(member);
+        });
+    }
+
+    @Test
+    public void testStoreMemberInvalidToken() throws NoSuchFieldException, IllegalAccessException {
+        Member member = createMember();
+        Field memberToken = Member.class.getDeclaredField("memberToken");
+        memberToken.setAccessible(true);
+        memberToken.set(member,null);
         // 예외 검증
         assertThrows(InvalidParamException.class, () -> {
             memberStore.store(member);
