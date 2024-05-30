@@ -3,6 +3,7 @@ package com.service.concurrencyprac.auth.service.impl;
 import com.service.concurrencyprac.payment.dto.PostDTO.PostUpdateDto;
 import com.service.concurrencyprac.payment.entity.post.Post;
 import com.service.concurrencyprac.payment.entity.post.PostCommand.PostingCommand;
+import com.service.concurrencyprac.payment.entity.post.PostCommand.UpdateCommand;
 import com.service.concurrencyprac.payment.entity.post.PostInfo;
 import com.service.concurrencyprac.payment.entity.post.PostReader;
 import com.service.concurrencyprac.payment.entity.post.PostStore;
@@ -47,7 +48,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostInfo updatePost(String postToken, PostUpdateDto requestDto) {
+    public PostInfo updatePost(String postToken, UpdateCommand requestDto) {
         Post post = postReader.getPost(postToken);
         post.update(requestDto);
         return new PostInfo(post);

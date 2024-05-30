@@ -3,6 +3,7 @@ package com.service.concurrencyprac.payment.entity.post;
 import com.service.concurrencyprac.auth.domain.BaseEntity;
 import com.service.concurrencyprac.common.util.TokenGenerator;
 import com.service.concurrencyprac.payment.dto.PostDTO.PostUpdateDto;
+import com.service.concurrencyprac.payment.entity.post.PostCommand.UpdateCommand;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -43,9 +44,9 @@ public class Post extends BaseEntity {
 
     }
 
-    public void update(PostUpdateDto postDto) {
-        this.title = postDto.getTitle();
-        this.contents = postDto.getContents();
+    public void update(UpdateCommand command) {
+        this.title = command.getTitle();
+        this.contents = command.getContents();
     }
 
     @Getter

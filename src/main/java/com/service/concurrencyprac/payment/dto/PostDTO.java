@@ -5,6 +5,7 @@ import com.service.concurrencyprac.payment.entity.post.PostCommand;
 import com.service.concurrencyprac.payment.entity.post.PostCommand.UpdateCommand;
 import com.service.concurrencyprac.payment.entity.post.PostInfo;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 

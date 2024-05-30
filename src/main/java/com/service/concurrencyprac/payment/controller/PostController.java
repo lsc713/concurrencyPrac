@@ -5,6 +5,7 @@ import static com.service.concurrencyprac.payment.entity.post.PostCommand.Postin
 
 import com.service.concurrencyprac.common.response.CommonResponse;
 import com.service.concurrencyprac.payment.dto.PostDTO.PostUpdateDto;
+import com.service.concurrencyprac.payment.entity.post.PostCommand.UpdateCommand;
 import com.service.concurrencyprac.payment.entity.post.PostInfo;
 import com.service.concurrencyprac.payment.repository.post.PostService;
 import com.service.concurrencyprac.security.service.UserDetailsImpl;
@@ -53,7 +54,7 @@ public class PostController {
     @PutMapping("/{postToken}")
     public CommonResponse<PostInfo> updatePost(@PathVariable String postToken,
         @AuthenticationPrincipal UserDetailsImpl userDetails,
-        @RequestBody PostUpdateDto requestDto) {
+        @RequestBody UpdateCommand requestDto) {
         PostInfo result = postservice.updatePost(postToken, requestDto);
         return CommonResponse.success(result);
     }
