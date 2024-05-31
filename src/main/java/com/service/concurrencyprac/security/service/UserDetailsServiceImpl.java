@@ -19,7 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member userData = memberRepository.findByEmail(email)
             .orElseThrow(
-                () -> new EntityNotFoundException("Not Found " + email));
+                () -> new UsernameNotFoundException("Not Found " + email));
 
         return new UserDetailsImpl(userData);
     }
