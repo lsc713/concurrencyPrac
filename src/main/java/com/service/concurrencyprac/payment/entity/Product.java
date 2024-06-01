@@ -9,11 +9,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product extends BaseEntity {
 
     private static final String INT_DEFINITION = "int default 0";
@@ -41,6 +45,17 @@ public class Product extends BaseEntity {
 
     @Column(length = 50)
     private Status status = Status.AVAILABLE;
+
+    @Builder
+    public Product(String name, Double price, int stock, String category, String imageUrl,
+        String description) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.category = category;
+        this.imageUrl = imageUrl;
+        this.description = description;
+    }
 
     @Getter
     @RequiredArgsConstructor
