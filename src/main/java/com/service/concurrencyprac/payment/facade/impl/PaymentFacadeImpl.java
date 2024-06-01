@@ -5,6 +5,7 @@ import com.service.concurrencyprac.common.exception.InvalidParamException;
 import com.service.concurrencyprac.common.response.ErrorCode;
 import com.service.concurrencyprac.payment.dto.CreateOrderDto;
 import com.service.concurrencyprac.payment.dto.OrderInfoDto;
+import com.service.concurrencyprac.payment.entity.IssuedCoupon;
 import com.service.concurrencyprac.payment.entity.Order;
 import com.service.concurrencyprac.payment.entity.Order.Status;
 import com.service.concurrencyprac.payment.entity.Product;
@@ -63,11 +64,16 @@ public class PaymentFacadeImpl implements PaymentFacade {
         if (!orderById.getStatus().equals(Status.READY)) {
             throw new InvalidParamException(ErrorCode.ILLEGAL_STATUS_FOR_PAYMENT);
         }
-        issuedCouponService.useCoupon(orderById.getUsedIssuedCoupon());
+
+        IssuedCoupon issuedCoupon = orderById.getUsedIssuedCoupon();
+        if (issuedCoupon != null) {
+            issuedCouponService.useCoupon(issuedCoupon);
+
+        }
         String reason = "결제건 사용: " + orderById.getOrderNo();
 
         orderService.completeOrder(orderById.getId());
-        return null;
+        return orderById.getId();
     }
 
     @Override
