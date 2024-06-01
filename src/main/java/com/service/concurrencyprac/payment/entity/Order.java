@@ -20,6 +20,7 @@ import jakarta.persistence.TemporalType;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -63,10 +64,10 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     @Column
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     @Column
-    private Double pointAmountUsed;
+    private Double pointAmountUsed = 0.0;
 
     @OneToOne(mappedBy = "usedOrder")
     private IssuedCoupon usedIssuedCoupon;
@@ -116,11 +117,12 @@ public class Order {
         double amount = orderItems.stream().mapToDouble(OrderItem::getEntryPrice).sum();
         amount -= this.pointAmountUsed;
 
-        Coupon coupon = this.usedIssuedCoupon.getCoupon();
-        if (coupon != null) {
-            amount = applyCouponDisCount(coupon, amount);
+        if (this.usedIssuedCoupon != null) {
+            Coupon coupon = this.usedIssuedCoupon.getCoupon();
+            if (coupon != null) {
+                amount = applyCouponDisCount(coupon, amount);
+            }
         }
-
         this.amount = amount;
         return amount;
     }
