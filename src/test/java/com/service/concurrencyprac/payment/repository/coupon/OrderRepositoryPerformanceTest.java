@@ -1,25 +1,22 @@
 package com.service.concurrencyprac.payment.repository.coupon;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.service.concurrencyprac.auth.domain.member.Member;
 import com.service.concurrencyprac.auth.domain.member.Member.UserRole;
 import com.service.concurrencyprac.auth.repository.member.MemberRepository;
 import com.service.concurrencyprac.payment.entity.Order;
 import com.service.concurrencyprac.payment.entity.OrderItem;
 import com.service.concurrencyprac.payment.entity.Product;
-import com.service.concurrencyprac.payment.repository.coupon.OrderItemRepository;
-import com.service.concurrencyprac.payment.repository.coupon.OrderRepository;
-import com.service.concurrencyprac.payment.repository.coupon.ProductRepository;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+//이안에 별도로 테스트코드생성용 레포 선언을해서 테스트해서 성능안좋은걸로 테스트를 위한 원래코드를 변경하는건 본말전도니..
 @SpringBootTest
 @Transactional
 public class OrderRepositoryPerformanceTest {
