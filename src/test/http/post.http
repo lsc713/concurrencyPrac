@@ -1,0 +1,41 @@
+### JWT 토큰을 이용한 게시글 등록 요청
+POST {{host}}/api/v1/post
+Content-Type: application/json
+AccessToken: Bearer {{jwt_token}}
+
+{
+  "title": "Test Title",
+  "contents": "Test Contents"
+}
+###
+
+# Fetch a post by token
+GET {{host}}/api/v1/post/fetch/{postToken}
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+###
+
+# Fetch all posts
+GET {{host}}/api/v1/post
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+###
+
+# Update a post
+PUT {{host}}/api/v1/post/{postToken}
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+  "title": "Updated Title",
+  "contents": "Updated Contents"
+}
+
+###
+
+# Delete a post
+DELETE {{host}}/api/v1/post/{postToken}
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
