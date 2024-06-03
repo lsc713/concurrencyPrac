@@ -36,6 +36,10 @@ public class UserDetailsImpl implements UserDetails {
         return member.getEmail();
     }
 
+    public String getNickname() {
+        return member.getNickName();
+    }
+
     @Override
     public String getPassword() {
         return member.getPassword();

@@ -19,10 +19,8 @@ public class PostDTO {
         private String title;
         @NotBlank(message = "내용은 필수값입니다.")
         private String contents;
-        @NotBlank(message = "닉네임은 필수값입니다.")
-        private String nickName;
 
-        public PostCommand.PostingCommand toCommand() {
+        public PostCommand.PostingCommand toCommand(String nickName) {
             return PostCommand.PostingCommand.builder()
                 .title(title)
                 .contents(contents)

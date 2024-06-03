@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PostService {
 
-    PostInfo registerPost(PostingCommand postCommand, String username);
+    PostInfo registerPost(PostingCommand postCommand);
 
     PostInfo getPostInfo(String postToken);
 

@@ -43,7 +43,7 @@ class PostServiceImplTest {
     public void testRegisterPostSuccessful() {
         PostingCommand postCommand = createPostCommand();
 
-        PostInfo postInfo = postService.registerPost(postCommand, "test@User");
+        PostInfo postInfo = postService.registerPost(postCommand);
 
         assertNotNull(postInfo);
         assertEquals("Test Title", postInfo.getTitle());

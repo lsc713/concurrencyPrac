@@ -25,7 +25,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostInfo registerPost(PostingCommand postCommand, String username) {
+    public PostInfo registerPost(PostingCommand postCommand) {
         Post entity = postCommand.toEntity();
         Post storedPost = postStore.store(entity);
         return new PostInfo(storedPost);
