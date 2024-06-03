@@ -20,6 +20,7 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -31,6 +32,7 @@ public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationConfiguration authenticationConfiguration;
     private final AccessLogRepository accessLogRepository;
+    private final LoggingAccessDeniedHandler loggingAccessDeniedHandler;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -79,10 +81,15 @@ public class SecurityConfig {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 //                .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers("/api/v1/post/fetch/**").permitAll()
                 .requestMatchers("/actuator/health").permitAll()
                 .requestMatchers("/admin").hasAnyRole("ADMIN")
                 .requestMatchers("/my/**").hasAnyRole("ADMIN", "MANAGER", "USER")
                 .anyRequest().authenticated());
+
+        security.exceptionHandling((exceptionHandling) ->
+            exceptionHandling.accessDeniedHandler(
+            loggingAccessDeniedHandler));
 
         security
             .sessionManagement(
@@ -95,4 +102,5 @@ public class SecurityConfig {
 
 
     }
+
 }

@@ -34,12 +34,12 @@ public class PostController {
     public CommonResponse<PostInfo> registerPost(
         @RequestBody @Valid PostRequest request,
         @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        PostingCommand postCommand = request.toCommand();
-        PostInfo response = postservice.registerPost(postCommand, userDetails.getUsername());
+        PostingCommand postCommand = request.toCommand(userDetails.getNickname());
+        PostInfo response = postservice.registerPost(postCommand);
         return CommonResponse.success(response);
     }
 
-    @GetMapping("/{postToken}")
+    @GetMapping("/fetch/{postToken}")
     public CommonResponse<PostInfo> fetchPostOne(@PathVariable String postToken) {
         PostInfo response = postservice.getPostInfo(postToken);
         return CommonResponse.success(response);
