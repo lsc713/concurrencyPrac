@@ -1,7 +1,9 @@
 package com.service.concurrencyprac.payment.entity.post;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 public class PostCommand {
@@ -27,10 +29,12 @@ public class PostCommand {
     @Getter
     @Builder
     @ToString
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class UpdateCommand {
 
-        private final String title;
-        private final String contents;
+        private String title;
+        private String contents;
 
         public Post toEntity() {
             return Post.builder()

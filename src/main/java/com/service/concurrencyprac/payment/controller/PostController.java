@@ -39,20 +39,20 @@ public class PostController {
         return CommonResponse.success(response);
     }
 
-    @GetMapping("/fetch/{postToken}")
-    public CommonResponse<PostInfo> fetchPostOne(@PathVariable String postToken) {
-        PostInfo response = postservice.getPostInfo(postToken);
-        return CommonResponse.success(response);
-    }
-
-    @GetMapping
+    @GetMapping("/fetch")
     public CommonResponse<List<PostInfo>> fetchPosts() {
         List<PostInfo> response = postservice.fetchAllPosts();
         return CommonResponse.success(response);
     }
 
+    @GetMapping("/fetch/{postToken}")
+    public CommonResponse<PostInfo> fetchPostOne(@PathVariable("postToken") String postToken) {
+        PostInfo response = postservice.getPostInfo(postToken);
+        return CommonResponse.success(response);
+    }
+
     @PutMapping("/{postToken}")
-    public CommonResponse<PostInfo> updatePost(@PathVariable String postToken,
+    public CommonResponse<PostInfo> updatePost(@PathVariable("postToken") String postToken,
         @AuthenticationPrincipal UserDetailsImpl userDetails,
         @RequestBody UpdateCommand requestDto) {
         PostInfo result = postservice.updatePost(postToken, requestDto);

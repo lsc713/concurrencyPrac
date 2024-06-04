@@ -22,9 +22,10 @@ Content-Type: application/json
 
 > {%
   client.test("Request executed successfully", function() {
-    var accessToken = response.headers['AccessToken'];
+    var accessToken = response.headers['AccessToken'] ;
     if (accessToken) {
-      client.global.set("AccessToken", accessToken.split(' ')[1]);
+      client.global.set("jwt_token", accessToken.split(' ')[1]);
     }
   });
+  client.log(response.headers["Vary"]);
 %}

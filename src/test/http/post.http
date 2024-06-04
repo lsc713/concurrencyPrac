@@ -7,35 +7,42 @@ AccessToken: Bearer {{jwt_token}}
   "title": "Test Title",
   "contents": "Test Contents"
 }
+> {%
+ client.test("Request executed successfully", function (){
+   var responseBody = JSON.parse(response.body);
+   var postToken = responseBody.data.postToken;
+   if (postToken) {
+     client.global.set("postToken", postToken);
+   }
+ });
+%}
 ###
 
 # Fetch a post by token
-GET {{host}}/api/v1/post/fetch/{postToken}
+GET {{host}}/api/v1/post/fetch/{{postToken}}
 Content-Type: application/json
-Authorization: Bearer {{jwt_token}}
 
 ###
 
 # Fetch all posts
-GET {{host}}/api/v1/post
+GET {{host}}/api/v1/post/fetch
 Content-Type: application/json
-Authorization: Bearer {{jwt_token}}
 
 ###
 
 # Update a post
-PUT {{host}}/api/v1/post/{postToken}
+PUT {{host}}/api/v1/post/{{postToken}}
 Content-Type: application/json
-Authorization: Bearer {{jwt_token}}
+AccessToken: Bearer {{jwt_token}}
 
 {
-  "title": "Updated Title",
+  "title": "Updated Title1",
   "contents": "Updated Contents"
 }
 
 ###
 
 # Delete a post
-DELETE {{host}}/api/v1/post/{postToken}
+DELETE {{host}}/api/v1/post/{{postToken}}
 Content-Type: application/json
 Authorization: Bearer {{jwt_token}}

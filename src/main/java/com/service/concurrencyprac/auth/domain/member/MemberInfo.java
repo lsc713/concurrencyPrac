@@ -1,9 +1,13 @@
 package com.service.concurrencyprac.auth.domain.member;
 
 import com.service.concurrencyprac.auth.domain.member.Member.UserRole;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
+@AllArgsConstructor
 public class MemberInfo {
 
     private final Long id;
