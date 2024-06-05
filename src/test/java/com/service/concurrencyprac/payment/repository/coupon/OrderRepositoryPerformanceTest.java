@@ -1,5 +1,6 @@
 package com.service.concurrencyprac.payment.repository.coupon;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.service.concurrencyprac.auth.domain.member.Member;
@@ -93,7 +94,7 @@ public class OrderRepositoryPerformanceTest {
 
         // N+1 문제 해결
         startTime = System.currentTimeMillis();
-        List<Order> ordersWithItems = orderRepository.findAllWithOrderItemsBy();
+        List<Order> ordersWithItems = orderRepository.findAllWithOrderItems();
         ordersWithItems.forEach(order -> order.getOrderItems().size());
         long durationFixed = System.currentTimeMillis() - startTime;
 

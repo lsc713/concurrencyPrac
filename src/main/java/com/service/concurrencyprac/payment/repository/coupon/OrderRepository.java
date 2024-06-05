@@ -7,13 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface OrderRepository extends JpaRepository<Order, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long>, OrderRepositoryCustom {
 
     // N+1 문제를 발생시키는 메서드
     List<Order> findAll();
-
-    @Override
-    <S extends Order> List<S> findAll(Example<S> example);
 
     // N+1 문제를 해결하는 메서드
     @EntityGraph(attributePaths = {"orderItems", "orderItems.product"})
