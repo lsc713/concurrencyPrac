@@ -25,7 +25,7 @@ public class AuthServiceImpl implements AuthService {
         }
         Claims info = jwtProvider.getUserInfoFromToken(refreshToken);
 
-        Member member = memberReader.getMember(info.getId());
+        Member member = memberReader.getMember(info.getSubject());
         return jwtProvider.createToken(
             jwtProvider.createTokenPayload(member.getEmail(), TokenType.ACCESS));
     }

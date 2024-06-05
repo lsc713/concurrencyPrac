@@ -60,6 +60,11 @@ public class UserDetailsImplTest {
     }
 
     @Test
+    public void testGetNickName() {
+        assertEquals("TestNickName", userDetails.getNickname());
+    }
+
+    @Test
     public void testIsAccountNonExpired() {
         assertTrue(userDetails.isAccountNonExpired());
     }
