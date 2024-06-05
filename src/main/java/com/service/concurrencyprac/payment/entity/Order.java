@@ -65,6 +65,7 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     @Column
+    @BatchSize(size = 100)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @Column
