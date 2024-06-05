@@ -27,6 +27,7 @@ import java.util.Random;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 @Entity
 @Getter
