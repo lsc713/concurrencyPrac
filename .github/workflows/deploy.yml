@@ -11,4 +11,4 @@ jobs:
 
     steps:
       - name: Code Hello World
-        run: echo "Hellow World
+        run: echo "Hello World"
