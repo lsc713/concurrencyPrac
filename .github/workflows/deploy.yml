@@ -17,3 +17,8 @@ jobs:
         run: |
           echo "Hi"
           echo "Hello"
+
+      - name: 자체 변수
+        run: |
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
