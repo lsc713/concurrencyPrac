@@ -12,3 +12,8 @@ jobs:
     steps:
       - name: Code Hello World
         run: echo "Hello World"
+
+      - name: 여러문장
+        run: |
+          echo "Hi"
+          echo "Hello"
