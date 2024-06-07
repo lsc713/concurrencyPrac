@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @Transactional
 public class OrderRepositoryPerformanceTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(
+        OrderRepositoryPerformanceTest.class);
 
     @Autowired
     private OrderRepository orderRepository;
@@ -89,18 +94,16 @@ public class OrderRepositoryPerformanceTest {
         List<Order> orders = orderRepository.findAll();
         orders.forEach(order -> order.getOrderItems().size());
         long durationNPlusOne = System.currentTimeMillis() - startTime;
-
-        System.out.println("N+1 문제 발생 시간: " + durationNPlusOne + "ms");
+        logger.info("N+1 문제 발생 시간: {}ms", durationNPlusOne);
 
         // N+1 문제 해결
         startTime = System.currentTimeMillis();
         List<Order> ordersWithItems = orderRepository.findAllWithOrderItems();
         ordersWithItems.forEach(order -> order.getOrderItems().size());
-        long durationFixed = System.currentTimeMillis() - startTime;
-
-        System.out.println("N+1 문제 해결 시간: " + durationFixed + "ms");
+        long durationCached = System.currentTimeMillis() - startTime;
+        logger.info("캐싱된 제품 가져오기 시간: {}ms", durationCached);
 
         // 성능 개선이 있는지 확인
-        assertTrue(durationFixed < durationNPlusOne);
+        assertTrue(durationCached < durationNPlusOne);
     }
 }

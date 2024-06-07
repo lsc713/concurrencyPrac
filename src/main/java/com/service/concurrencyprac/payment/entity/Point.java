@@ -12,10 +12,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Point extends BaseEntity {
 
     @Id
@@ -30,6 +34,14 @@ public class Point extends BaseEntity {
 
     @OneToMany(mappedBy = "point")
     private List<PointLog> logs;
+
+    @Builder
+    public Point(Long id, Member member, int availableAmount, List<PointLog> logs) {
+        this.id = id;
+        this.member = member;
+        this.availableAmount = availableAmount;
+        this.logs = logs;
+    }
 
     public void use(int amountToUse) {
         if (amountToUse > availableAmount) {
