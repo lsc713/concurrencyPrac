@@ -20,9 +20,9 @@ public class ImagesSaveDto {
     @Getter
     public static class ItemImageResponseDto {
 
-        private String originalName;
-        private String savedImage;
-        private String accessUrl;
+        private final String originalName;
+        private final String savedImage;
+        private final String accessUrl;
 
         public ItemImageResponseDto(String originalName, String savedImage, String accessUrl) {
             this.originalName = originalName;
