@@ -8,6 +8,7 @@ import com.service.concurrencyprac.auth.domain.member.MemberInfo;
 import com.service.concurrencyprac.auth.domain.token.TokenBlackList.TokenType;
 import com.service.concurrencyprac.auth.dto.MemberDTO;
 import com.service.concurrencyprac.auth.jwt.JwtProvider;
+import com.service.concurrencyprac.auth.repository.member.MemberReader;
 import com.service.concurrencyprac.auth.service.member.MemberService;
 import com.service.concurrencyprac.auth.service.token.AuthService;
 import com.service.concurrencyprac.auth.service.token.TokenBlackListService;
@@ -15,6 +16,7 @@ import com.service.concurrencyprac.common.response.CommonResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -46,6 +48,9 @@ public class AuthControllerTest {
 
     @MockBean
     private AuthService authService;
+
+    @Autowired
+    private MemberReader memberReader;
 
     @MockBean
     private TokenBlackListService tokenBlackListService;
@@ -98,12 +103,12 @@ public class AuthControllerTest {
     @WithMockUser(username = "testuser", roles = {"USER"})
     public void testRefresh() throws Exception {
         when(jwtProvider.getJwtFromHeader(any(HttpServletRequest.class), any(TokenType.class)))
-            .thenReturn("dummy-refresh-token");
+            .thenReturn("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNYW9AVGVzdC5jb20iLCJleHAiOjE3MTg0MjMyMDMsImlhdCI6MTcxODQxOTYwMywianRpIjoiNTIwZDdlOTQtYzI1Ni00NDkwLTkyYTMtMDMxMDk1NzE1ZmY5In0.-U9Qm0XGMtgKzoSdCM5XUOdRr_fVG9SwhnIbx6eolrU");
         when(authService.refreshAccessToken(anyString())).thenReturn("Bearer new-access-token");
-
         // Create HttpHeaders object and add custom header
         HttpHeaders headers = new HttpHeaders();
-        headers.add("RefreshToken", "Bearer dummy-refresh-token");
+        headers.add("RefreshToken",
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNYW9AVGVzdC5jb20iLCJleHAiOjE3MTg0MjMyMDMsImlhdCI6MTcxODQxOTYwMywianRpIjoiNTIwZDdlOTQtYzI1Ni00NDkwLTkyYTMtMDMxMDk1NzE1ZmY5In0.-U9Qm0XGMtgKzoSdCM5XUOdRr_fVG9SwhnIbx6eolrU");
 
         mockMvc.perform(post("/api/v1/auth/refresh")
                 .headers(headers))
