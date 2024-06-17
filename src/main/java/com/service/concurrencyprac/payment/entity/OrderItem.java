@@ -41,4 +41,8 @@ public class OrderItem {
     public double getEntryPrice() {
         return this.product.getPrice() * quantity;
     }
+
+    void orderSetting(Order order) {
+        this.order = order;
+    }
 }

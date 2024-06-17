@@ -65,7 +65,6 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     @Column
-    @BatchSize(size = 100)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @Column
@@ -102,6 +101,11 @@ public class Order {
     public Order() {
         super();
         setOrderNo();
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.orderSetting(this);
     }
 
     private void setOrderNo() {
