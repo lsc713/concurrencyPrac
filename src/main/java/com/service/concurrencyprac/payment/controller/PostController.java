@@ -61,11 +61,11 @@ public class PostController {
 
     @DeleteMapping("/{postToken}")
     public CommonResponse<HttpStatus> deletePost(
-        @PathVariable String postToken,
+        @PathVariable("postToken") String postToken,
         @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
         postservice.deletePost(postToken, userDetails.getUsername());
-        return CommonResponse.success(HttpStatus.NO_CONTENT);
+        return CommonResponse.success(HttpStatus.OK);
 
     }
 
