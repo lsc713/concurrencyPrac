@@ -1,6 +1,7 @@
 package com.service.concurrencyprac.auth.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.service.concurrencyprac.auth.domain.member.Member;
 import com.service.concurrencyprac.auth.domain.member.Member.Status;
 import com.service.concurrencyprac.auth.domain.member.Member.UserRole;
 import com.service.concurrencyprac.auth.domain.member.MemberCommand.SignupMemberRequest;
@@ -12,11 +13,11 @@ import com.service.concurrencyprac.auth.repository.member.MemberReader;
 import com.service.concurrencyprac.auth.service.member.MemberService;
 import com.service.concurrencyprac.auth.service.token.AuthService;
 import com.service.concurrencyprac.auth.service.token.TokenBlackListService;
-import com.service.concurrencyprac.common.response.CommonResponse;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.stubbing.OngoingStubbing;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,11 +31,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 public class AuthControllerTest {
 
     @Autowired
@@ -49,7 +52,7 @@ public class AuthControllerTest {
     @MockBean
     private AuthService authService;
 
-    @Autowired
+    @MockBean
     private MemberReader memberReader;
 
     @MockBean
@@ -102,13 +105,34 @@ public class AuthControllerTest {
     @Test
     @WithMockUser(username = "testuser", roles = {"USER"})
     public void testRefresh() throws Exception {
-        when(jwtProvider.getJwtFromHeader(any(HttpServletRequest.class), any(TokenType.class)))
-            .thenReturn("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNYW9AVGVzdC5jb20iLCJleHAiOjE3MTg0MjMyMDMsImlhdCI6MTcxODQxOTYwMywianRpIjoiNTIwZDdlOTQtYzI1Ni00NDkwLTkyYTMtMDMxMDk1NzE1ZmY5In0.-U9Qm0XGMtgKzoSdCM5XUOdRr_fVG9SwhnIbx6eolrU");
-        when(authService.refreshAccessToken(anyString())).thenReturn("Bearer new-access-token");
-        // Create HttpHeaders object and add custom header
+        String refreshToken = "dummy-refresh-token";
+        String newAccessToken = "Bearer new-access-token";
+
+        // JWT 관련 Mock 설정
+        when(jwtProvider.getJwtFromHeader(any(HttpServletRequest.class), Mockito.eq(TokenType.REFRESH)))
+            .thenReturn(refreshToken);
+        when(jwtProvider.getJwtFromHeader(any(HttpServletRequest.class), Mockito.eq(TokenType.ACCESS)))
+            .thenReturn(null);
+        when(jwtProvider.validateToken(anyString())).thenReturn(true);
+
+        Claims claims = Mockito.mock(Claims.class);
+        when(claims.getSubject()).thenReturn("test@example.com");
+        when(jwtProvider.getUserInfoFromToken(anyString())).thenReturn(claims);
+
+        // MemberReader Mock 설정
+        Member mockMember = Member.builder()
+            .email("test@example.com")
+            .password("password")
+            .name("Test User")
+            .nickName("testuser")
+            .role(UserRole.USER)
+            .build();
+        when(memberReader.getMember(anyString())).thenReturn(mockMember);
+
+        when(authService.refreshAccessToken(anyString())).thenReturn(newAccessToken);
+
         HttpHeaders headers = new HttpHeaders();
-        headers.add("RefreshToken",
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNYW9AVGVzdC5jb20iLCJleHAiOjE3MTg0MjMyMDMsImlhdCI6MTcxODQxOTYwMywianRpIjoiNTIwZDdlOTQtYzI1Ni00NDkwLTkyYTMtMDMxMDk1NzE1ZmY5In0.-U9Qm0XGMtgKzoSdCM5XUOdRr_fVG9SwhnIbx6eolrU");
+        headers.add("RefreshToken", refreshToken);
 
         mockMvc.perform(post("/api/v1/auth/refresh")
                 .headers(headers))
@@ -119,7 +143,7 @@ public class AuthControllerTest {
                 assertNotNull(responseBody);
             })
             .andExpect(jsonPath("$.result").value("SUCCESS"))
-            .andExpect(jsonPath("$.data").value("Bearer new-access-token"));
+            .andExpect(jsonPath("$.data").value(newAccessToken));
     }
 
     @Test
