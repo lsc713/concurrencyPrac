@@ -27,6 +27,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -53,6 +55,11 @@ public class PostControllerTest {
                 .nickName("TestNickName")
                 .role(UserRole.USER)
                 .build()
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(
+            new UsernamePasswordAuthenticationToken(
+                userDetails, null, userDetails.getAuthorities())
         );
 
         postInfo = new PostInfo(
@@ -86,26 +93,26 @@ public class PostControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser("testUser")
     public void testFetchPostOne() throws Exception {
         when(postService.getPostInfo(any(String.class)))
             .thenReturn(postInfo);
 
-        mockMvc.perform(get("/api/v1/post/{postToken}", "test-token"))
+        mockMvc.perform(get("/api/v1/post/fetch/{postToken}", "test-token"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.data.title").value(postInfo.getTitle()))
             .andExpect(jsonPath("$.data.contents").value(postInfo.getContents()));
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser("testUser")
     public void testFetchPosts() throws Exception {
         List<PostInfo> postInfoList = Collections.singletonList(postInfo);
 
         when(postService.fetchAllPosts())
             .thenReturn(postInfoList);
 
-        mockMvc.perform(get("/api/v1/post"))
+        mockMvc.perform(get("/api/v1/post/fetch"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.data[0].title").value(postInfo.getTitle()))
             .andExpect(jsonPath("$.data[0].contents").value(postInfo.getContents()));
@@ -140,11 +147,11 @@ public class PostControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(username = "testUser")
     public void testDeletePost() throws Exception {
         mockMvc.perform(delete("/api/v1/post/{postToken}", "test-token")
                 .principal(() -> "test@example.com"))
-            .andExpect(status().isNoContent());
+            .andExpect(status().isOk());
     }
 
     private static String asJsonString(final Object obj) {

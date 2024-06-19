@@ -2,11 +2,11 @@ package com.service.concurrencyprac.security.service;
 
 import com.service.concurrencyprac.auth.domain.token.TokenBlackList.TokenType;
 import com.service.concurrencyprac.auth.jwt.JwtProvider;
-import com.service.concurrencyprac.security.service.JwtAuthorizationFilter;
-import com.service.concurrencyprac.security.service.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,10 +14,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 
@@ -112,5 +109,43 @@ public class JwtAuthorizationFilterTest {
 
         verify(filterChain, never()).doFilter(request, response);
         verify(userDetailsService, never()).loadUserByUsername(anyString());
+    }
+
+    @Test
+    public void testDoFilterInternal_withExceptionWhileSettingAuthenticationForAccessToken() throws ServletException, IOException {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        request.addHeader("Authorization", "Bearer valid-access-token");
+
+        when(jwtProvider.getJwtFromHeader(any(), eq(TokenType.ACCESS))).thenReturn("valid-access-token");
+        when(jwtProvider.validateToken("valid-access-token")).thenReturn(true);
+        Claims claims = mock(Claims.class);
+        when(claims.getSubject()).thenReturn("test@example.com");
+        when(jwtProvider.getUserInfoFromToken("valid-access-token")).thenReturn(claims);
+        doThrow(new RuntimeException("User not found")).when(userDetailsService).loadUserByUsername("test@example.com");
+
+        jwtAuthorizationFilter.doFilterInternal(request, response, filterChain);
+
+        verify(filterChain, never()).doFilter(request, response);
+        verify(userDetailsService).loadUserByUsername("test@example.com");
+    }
+
+    @Test
+    public void testDoFilterInternal_withExceptionWhileSettingAuthenticationForRefreshToken() throws ServletException, IOException {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        request.addHeader("Authorization", "Bearer valid-refresh-token");
+
+        when(jwtProvider.getJwtFromHeader(any(), eq(TokenType.REFRESH))).thenReturn("valid-refresh-token");
+        when(jwtProvider.validateToken("valid-refresh-token")).thenReturn(true);
+        Claims claims = mock(Claims.class);
+        when(claims.getSubject()).thenReturn("test@example.com");
+        when(jwtProvider.getUserInfoFromToken("valid-refresh-token")).thenReturn(claims);
+        doThrow(new RuntimeException("User not found")).when(userDetailsService).loadUserByUsername("test@example.com");
+
+        jwtAuthorizationFilter.doFilterInternal(request, response, filterChain);
+
+        verify(filterChain, never()).doFilter(request, response);
+        verify(userDetailsService).loadUserByUsername("test@example.com");
     }
 }
