@@ -22,18 +22,6 @@ jobs:
       - name: Create application-test.yml
         run: echo "${{ secrets.APPLICATION_TEST_PROPERTIES }}" > ./src/main/resources/application-test.yml
 
-      - name: Create schema.sql
-        run: |
-          echo "DROP TABLE IF EXISTS posts;" > ./src/main/resources/schema.sql
-          echo "DROP TABLE IF EXISTS users;" >> ./src/main/resources/schema.sql
-          echo "CREATE TABLE users (id BIGINT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL);" >> ./src/main/resources/schema.sql
-          echo "CREATE TABLE posts (id BIGINT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, contents TEXT NOT NULL, user_id BIGINT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id));" >> ./src/main/resources/schema.sql
-
-      - name: Create data.sql
-        run: |
-          echo "INSERT INTO users (id, username, password, email) VALUES (1, 'testUser', 'password', 'test@example.com');" > ./src/main/resources/data.sql
-          echo "INSERT INTO posts (id, title, contents, user_id) VALUES (1, 'Sample Title', 'Sample Content', 1);" >> ./src/main/resources/data.sql
-
       - name: Build and test
         run: ./gradlew clean build -Dspring.profiles.active=test
 
