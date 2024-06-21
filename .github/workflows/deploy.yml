@@ -13,28 +13,20 @@ jobs:
       - name: SSH 접속
         uses: appleboy/ssh-action@v1.0.3
         env:
-          APPLICATION_PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
+          APPLICATION_PROPERTIES: ${{ secrets.APPLICATION_DEV_PROPERTIES }}
         with:
           host: ${{ secrets.EC2_HOST}}
           username: ${{ secrets.EC2_USERNAME}}
           key: ${{ secrets.EC2_PRIVATE_KEY}}
-          envs: APPLICATION_PROPERTIES
+          envs: APPLICATION_DEV_PROPERTIES
           script_stop: true
           script: |
             cd /home/ubuntu/concurrencyPrac
             rm -rf scr/main/resources/application.yml
             git pull origin master
-            echo "$APPLICATION_PROPERTIES" > src/main/resources/application.yml
+            echo "APPLICATION_DEV_PROPERTIES" > src/main/resources/application-dev.yml
             ./gradlew clean build
             sudo fuser -k -n tcp 8080 || true
             nohup java -jar build/libs/*SNAPSHOT.jar > ./output.log 2>&1 &
 
-      - name: 여러문장
-        run: |
-          echo "Hi"
-          echo "Hello"
 
-      - name: 자체 변수
-        run: |
-          echo $GITHUB_SHA
-          echo $GITHUB_REPOSITORY
