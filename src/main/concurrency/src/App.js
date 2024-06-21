@@ -7,8 +7,9 @@ import axios from "axios";
 
 function App() {
   const [hello, setHello] = useState('');
-  let [title, settitle] =useState(['1','2','3'])
-  let [like, changeLike] = useState(0);
+  const [title, setTitle] = useState(['1', '2', '3']);
+  const [likes, setLikes] = useState([0, 0, 0]);
+  const [modals, setModals] = useState([false, false, false]);
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/v1/auth/signup')
@@ -20,35 +21,58 @@ function App() {
     });
   }, []);
 
+  const handleTitleClick = (index) => {
+    const newModals = [...modals];
+    newModals[index] = !newModals[index];
+    setModals(newModals);
+    const newTitles = [...title];
+    newTitles[index] = '추천게시물';
+    setTitle(newTitles);
+  };
+
+  const handleLikeClick = (event, index) => {
+    event.stopPropagation();
+    const newLikes = [...likes];
+    newLikes[index] += 1;
+    setLikes(newLikes);
+  };
+
+  const handleTitleChange = (index, newTitle) => {
+    const newTitles = [...title];
+    newTitles[index] = newTitle;
+    setTitle(newTitles);
+  };
+
   return (
       <div className="App">
         <div className="black-nav">
           <h4>상단바</h4>
         </div>
-        <button onClick={()=>{
-          let copy = [...title];
-          copy.sort()
-          settitle(copy)
-        }}>정렬</button>
-        <div className="list">
-          <h4 onClick={()=>{
-            let copy = [...title];
-            copy[0] = '추천게시물';
-            settitle(copy);
-          }}>{title[0]} <span onClick={()=>{changeLike(like+1)}}>👍</span>{like}</h4>
-          <p>content</p>
-        </div>
-        <div className="list">
-          <h4>{title[1]}</h4>
-          <p>content</p>
-        </div>
-        <div className="list">
-          <h4>{title[2]}</h4>
-          <p>content</p>
-        </div>
+        {
+          title.map((e, index) => (
+              <div key={index} className="list">
+                <h4 onClick={() => handleTitleClick(index)}>
+                  {title[index]} <span onClick={(event) => handleLikeClick(event, index)}>👍</span>{likes[index]}
+                </h4>
+                <p>content</p>
+                {modals[index] && <Modal title={title[index]} onChange={()=> handleTitleChange(index, "new title")} />}
+              </div>
+          ))
+        }
         백엔드 데이터 : {hello}
       </div>
   );
+}
+
+function Modal({ title,onChange}) {
+  return (
+      <div className="modal">
+        <h4>{title}</h4>
+        <p>날짜</p>
+        <p>상세내용</p>
+        <button onClick={onChange}>글 수정</button>
+      </div>
+  )
 }
 
 export default App;
