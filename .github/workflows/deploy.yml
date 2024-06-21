@@ -1,4 +1,4 @@
-name : Deploy to EC2
+name: Deploy to EC2
 
 on:
   push:
@@ -10,25 +10,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Github Repository에 올린 파일들을 불러오기
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: JDK 17버전 설치
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
 
-      - name: application-test.yml 파일 만들기
+      - name: Create application-test.yml
         run: echo "${{ secrets.APPLICATION_TEST_PROPERTIES }}" > ./src/main/resources/application-test.yml
 
-      - name: 테스트 및 빌드
+      - name: Create schema.sql
+        run: |
+          echo "DROP TABLE IF EXISTS posts;" > ./src/main/resources/schema.sql
+          echo "DROP TABLE IF EXISTS users;" >> ./src/main/resources/schema.sql
+          echo "CREATE TABLE users (id BIGINT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL);" >> ./src/main/resources/schema.sql
+          echo "CREATE TABLE posts (id BIGINT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255) NOT NULL, contents TEXT NOT NULL, user_id BIGINT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id));" >> ./src/main/resources/schema.sql
+
+      - name: Create data.sql
+        run: |
+          echo "INSERT INTO users (id, username, password, email) VALUES (1, 'testUser', 'password', 'test@example.com');" > ./src/main/resources/data.sql
+          echo "INSERT INTO posts (id, title, contents, user_id) VALUES (1, 'Sample Title', 'Sample Content', 1);" >> ./src/main/resources/data.sql
+
+      - name: Build and test
         run: ./gradlew clean build -Dspring.profiles.active=test
 
-      - name: 빌드된 파일 이름 변경
+      - name: Rename the built file
         run: mv ./build/libs/*SNAPSHOT.jar ./project.jar
 
-      - name: SCP로 EC2에 빌드된 파일 전송
+      - name: Copy the built file to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -37,14 +49,12 @@ jobs:
           source: project.jar
           target: /home/ubuntu/concurrencyPrac/tobe
 
-
-
-      - name: SSH 접속
+      - name: Deploy on EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.EC2_HOST}}
-          username: ${{ secrets.EC2_USERNAME}}
-          key: ${{ secrets.EC2_PRIVATE_KEY}}
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
           script_stop: true
           script: |
             rm -rf /home/ubuntu/concurrencyPrac/current
@@ -54,5 +64,3 @@ jobs:
             sudo fuser -k -n tcp 8080 || true
             nohup java -jar project.jar > ./output.log 2>&1 &
             rm -rf /home/ubuntu/concurrencyPrac/tobe
-
-
