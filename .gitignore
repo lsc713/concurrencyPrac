@@ -20,6 +20,7 @@ bin/
 ### IntelliJ IDEA ###
 application.yml
 application-secret.yml
+application-test.yml
 application-dev.yml
 .idea
 *.iws
