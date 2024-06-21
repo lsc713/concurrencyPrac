@@ -1,0 +1,2 @@
+INSERT INTO users (id, username, password, email) VALUES (1, 'testUser', 'password', 'test@example.com');
+INSERT INTO posts (id, title, contents, user_id) VALUES (1, 'Sample Title', 'Sample Content', 1);
