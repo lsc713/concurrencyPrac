@@ -19,11 +19,9 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Create application.yml
-        run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.yml
 
-      - name: Create application-test.yml
-        run: echo "${{ secrets.APPLICATION_TEST_PROPERTIES }}" > ./src/main/resources/application-test.yml
+      - name: Create application.yml
+        run: echo "${{ secrets.APPLICATION_TEST_PROPERTIES }}" > ./src/main/resources/application.yml
 
       - name: Build and test
         run: ./gradlew clean build -Dspring.profiles.active=test
